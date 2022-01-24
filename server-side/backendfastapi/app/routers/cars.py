@@ -16,4 +16,4 @@ router = APIRouter(
 async def create_car(car: CarIn_Pydantic):
     car_obj = Car()
     await car_obj.save()
-    return await Duck_Pydantic.from_tortoise_orm(car_obj)
+    return await Car_Pydantic.from_tortoise_orm(car_obj)
