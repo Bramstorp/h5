@@ -3,6 +3,7 @@ from tortoise.contrib.fastapi import register_tortoise
 from tortoise import Tortoise
 from fastapi.middleware.cors import CORSMiddleware
 
+from .routers import cars
 
 app = FastAPI()
 
@@ -20,18 +21,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(cars.router)
+
 @app.get("/")
 async def root():
     return "Home"
 
 
-Tortoise.init_models([], 'models')
+Tortoise.init_models(['app.models.cars'], 'models')
 
 register_tortoise(
     app, 
     db_url='sqlite://db.sqlite3',
     modules={
-        'models': [],
+        'models': [
+            'app.models.cars',
+        ],
     },
     generate_schemas=True,
     add_exception_handlers=True,
