@@ -5,7 +5,7 @@ services:
     container_name: backend-fastapi-dev
     build: 
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     volumes:
       - ./backendfastapi/:/usr/src/app/
@@ -25,5 +25,4 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
 volumes:
-  postgres_data:
   node_modules:
