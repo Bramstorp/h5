@@ -2,4 +2,4 @@
 
 Teknologi beslutninger:
 
-Clientside - React  API / Backend - FastAPI python  NOSQL - MongoDB
+Clientside - React<br/>  API / Backend - FastAPI python  NOSQL - MongoDB
