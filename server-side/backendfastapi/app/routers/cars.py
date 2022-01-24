@@ -14,6 +14,5 @@ router = APIRouter(
 
 @router.post('/car', response_model=Car_Pydantic)
 async def create_car(car: CarIn_Pydantic):
-    car_obj = Car()
-    await car_obj.save()
+    car_obj = await Car.create(**car.dict(exclude_unset=True))
     return await Car_Pydantic.from_tortoise_orm(car_obj)
