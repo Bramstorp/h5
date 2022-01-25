@@ -1,14 +1,13 @@
-FROM node:14-alpine
+FROM node:13.12.0-alpine
 
-WORKDIR /frontend/
+WORKDIR /app
 
-ENV PATH /frontend/node_modules/.bin:$PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-COPY yarn.lock /frontend/
-COPY package.json /frontend/
+COPY package.json ./
+COPY yarn.lock ./
 
 RUN yarn --silent
-RUN yarn global add react-scripts --silent
+RUN yarn install react-scripts@3.4.1 -g --silent
 
-COPY . /frontend/app/
-WORKDIR /frontend/app/
+COPY . ./
