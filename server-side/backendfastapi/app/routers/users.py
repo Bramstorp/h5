@@ -17,17 +17,25 @@ router = APIRouter(
 #Login
 @router.post('/login')
 async def login(username: str, password: str):
+
+    auth = ""
     #Get User from DB
     user = await User.get(username=username)
-    if user:
-        #Hash incomming Password
-        hashedPassword = hashlib.sha256(password.encode()).hexdigest()
+    if not user:
+        raise HTTPException(
+            status_code=HTTP_401_UNAUTHORIZED,
+            detail="der skete en fejl"
+        )
+    #Hash incomming Password
+    hashedPassword = hashlib.sha256(password.encode()).hexdigest()
 
-        #Match paswords with user from db
-        if hashedPassword == user.password:
-            return True
+    #Match paswords with user from db
+    if hashedPassword == user.password:
+        auth == "OK"
+    else:
+        auth == "FALSE"
 
-    return 
+    return {"AUTH": auth}
 
 #Create User
 @router.post('/user', response_model=User_Pydantic)
