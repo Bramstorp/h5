@@ -15,3 +15,8 @@ They wish to a more “smart” way of doing things, they wish for an app or som
 7. The user must be able to see their profile info.
 8. You must use a NOSQL database (Firebase, Mongo DB).
 9. The user can either have a subscription, to get free washes, or pay for one at the time.
+
+
+# Teknologi beslutninger:
+
+Clientside - React<br/>  API / Backend - FastAPI<br/> python  NOSQL - MongoDB
