@@ -16,20 +16,18 @@ router = APIRouter(
 
 #Login
 @router.post('/login')
-async def login(user: User):
-    current_user = user.dict()
-    print("@@@@@@@@@@@@@@@@@@@@@@@@")
-    print(current_user)
-    print("@@@@@@@@@@@@@@@@@@@@@@@@")
+async def login(username: str, password: str):
     #Get User from DB
-    #user = User_Pydantic.from_queryset_single(User.get(username=username))
-    #Hash Password
-    #hashedPassword = hashlib.sha256(password.encode()).hexdigest()
-    
-    #Match passwords
+    user = await User.get(username=username)
+    if user:
+        #Hash incomming Password
+        hashedPassword = hashlib.sha256(password.encode()).hexdigest()
 
-    #return correct statuscode
-    return
+        #Match paswords with user from db
+        if hashedPassword == user.password:
+            return True
+
+    return 
 
 #Create User
 @router.post('/user', response_model=User_Pydantic)
@@ -44,9 +42,9 @@ async def create_user(user: UserIn_Pydantic):
 #Get User from id
 @router.get('/user/{user_id}', response_model=User_Pydantic)
 async def get_user(user_id: int):
-    return await User_Pydantic.from_queryset_single(User.get(id=user_id))
+    return await User.get(id=user_id)
 
 #Get User from username
-@router.get('/user/{user_username}', response_model=User_Pydantic)
+@router.get('/user', response_model=User_Pydantic)
 async def get_user(user_username: str):
-    return await User_Pydantic.from_queryset_single(User.get(id=user_username))
+    return await User.get(username=user_username)
