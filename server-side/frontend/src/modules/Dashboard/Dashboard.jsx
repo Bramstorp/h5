@@ -42,14 +42,14 @@ export const Dashboard = () => {
           <div className="col-6 mb-4">
             <div className={`card text-light bg-${carColor(wash)}`}>
               <div className="card-body">
-                <h5 className="card-title">{wash.name}</h5>
+                <h5 className="card-title text-center">{wash.name}</h5>
                 <p className="card-text">STATUS: {wash.status}</p>
                 <p className="card-text">USER: {wash.user}</p>
               </div>
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">START</button>
-                <button type="button" class="btn btn-secondary">PAUSE</button>
-                <button type="button" class="btn btn-secondary">STOP</button>
+                <button type="button" class="btn m-2 btn-light">START</button>
+                <button type="button" class="btn m-2 btn-light">PAUSE</button>
+                <button type="button" class="btn m-2 btn-light">STOP</button>
               </div>
             </div>
           </div>
