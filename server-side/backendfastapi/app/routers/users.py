@@ -16,11 +16,15 @@ router = APIRouter(
 
 #Login
 @router.post('/login')
-async def login(username: str, password: str):
+async def login(user: User):
+    current_user = user.dict()
+    print("@@@@@@@@@@@@@@@@@@@@@@@@")
+    print(current_user)
+    print("@@@@@@@@@@@@@@@@@@@@@@@@")
     #Get User from DB
-
+    #user = User_Pydantic.from_queryset_single(User.get(username=username))
     #Hash Password
-    hashedPassword = hashlib.sha256(password.encode()).hexdigest()
+    #hashedPassword = hashlib.sha256(password.encode()).hexdigest()
     
     #Match passwords
 
@@ -35,6 +39,14 @@ async def create_user(user: UserIn_Pydantic):
     user_obj = await User.create(**user.dict(exclude_unset=True))
 
     #save to DB
-
     return await User_Pydantic.from_tortoise_orm(user_obj)
 
+#Get User from id
+@router.get('/user/{user_id}', response_model=User_Pydantic)
+async def get_user(user_id: int):
+    return await User_Pydantic.from_queryset_single(User.get(id=user_id))
+
+#Get User from username
+@router.get('/user/{user_username}', response_model=User_Pydantic)
+async def get_user(user_username: str):
+    return await User_Pydantic.from_queryset_single(User.get(id=user_username))
