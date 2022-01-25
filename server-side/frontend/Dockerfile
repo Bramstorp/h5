@@ -1,13 +1,14 @@
 FROM node:14-alpine
 
-WORKDIR /app
+WORKDIR /frontend/
 
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH /frontend/node_modules/.bin:$PATH
 
-COPY package.json ./
-COPY yarn.lock ./
+COPY yarn.lock /frontend/
+COPY package.json /frontend/
 
 RUN yarn --silent
 RUN yarn global add react-scripts --silent
 
-COPY . ./
+COPY . /frontend/app/
+WORKDIR /frontend/app/
