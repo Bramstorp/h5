@@ -8,6 +8,6 @@ COPY package.json ./
 COPY yarn.lock ./
 
 RUN yarn --silent
-RUN yarn install react-scripts@3.4.1 -g --silent
+RUN yarn global add react-scripts --silent
 
 COPY . ./
