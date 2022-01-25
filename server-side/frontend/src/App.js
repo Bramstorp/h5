@@ -5,7 +5,7 @@ import { NotFound } from "./NotFound";
 import { Layout } from "./layout/layout";
 
 import { Home } from "./modules/Home/Home"
-
+import { Dashboard } from "./modules/Dashboard/Dashboard"
 
 function App() {
     return ( 
@@ -13,6 +13,7 @@ function App() {
         <Layout>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/dashboard" component={Dashboard} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

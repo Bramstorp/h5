@@ -26,6 +26,11 @@ export const Navbar = () => {
                 Home
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/Dashboard">
+                Dashboard
+              </Link>
+            </li>
           </ul>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
