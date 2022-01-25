@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 export const Dashboard = () => {
-  const [wash, setWash] = useState([])
-  console.log(wash)
+  const [washers, setWashers] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("http://localhost:8000/carwashes");
       const json = await response.json();
-      setWash(json)
+      setWashers(json)
     }
     fetchData().catch(console.error)
   }, [])
@@ -39,7 +38,7 @@ export const Dashboard = () => {
       <h1>Dashboard</h1>
       <div className="row">
         <p>Washing halls</p>
-        {wash.map((wash) => (
+        {washers.map((wash) => (
           <div className="col-6 mb-4">
             <div className={`card text-light bg-${carColor(wash)}`}>
               <div className="card-body">
@@ -47,16 +46,10 @@ export const Dashboard = () => {
                 <p className="card-text">STATUS: {wash.status}</p>
                 <p className="card-text">USER: {wash.user}</p>
               </div>
-              <div class="row">
-                <a href="#" type="button" className="col-4 btn btn-light">
-                  Start
-                </a>
-                <a href="#" type="button" className="col-4 mr-3 btn btn-light">
-                  Pause
-                </a>
-                <a href="#" type="button" className="col-4 btn btn-light">
-                  Stop
-                </a>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary">START</button>
+                <button type="button" class="btn btn-secondary">PAUSE</button>
+                <button type="button" class="btn btn-secondary">STOP</button>
               </div>
             </div>
           </div>
