@@ -1,6 +1,5 @@
-from email.policy import default
 from tortoise.models import Model 
-from tortoise import fields 
+from tortoise import fields
 
 
 status =  ["FREE", "RUNNING", "STOPPED", "ERROR"]
@@ -10,3 +9,4 @@ class Carwash(Model):
     name = fields.CharField(50)
     status = fields.CharField(50, default="FREE")
     time = fields.IntField()
+    user = fields.ForeignKeyField("models.User", related_name="user")
