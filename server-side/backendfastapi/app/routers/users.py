@@ -17,34 +17,30 @@ router = APIRouter(
 #Login
 @router.post('/login')
 async def login(username: str, password: str):
-
-    auth = ""
     #Get User from DB
     user = await User.get(username=username)
-    if not user:
-        raise HTTPException(
-            status_code=HTTP_401_UNAUTHORIZED,
-            detail="der skete en fejl"
-        )
+   
     #Hash incomming Password
     hashedPassword = hashlib.sha256(password.encode()).hexdigest()
 
     #Match paswords with user from db
-    if hashedPassword == user.password:
-        auth == "OK"
-    else:
-        auth == "FALSE"
+    if hashedPassword != user.password:
+        raise HTTPException(
+            status_code=400,
+            detail="Kodeord matcher ikke"
+        )
 
-    return {"AUTH": auth}
+    raise HTTPException(
+            status_code=200,
+        )
 
 #Create User
 @router.post('/user', response_model=User_Pydantic)
 async def create_user(user: UserIn_Pydantic):
 
     #Create User
+    user.password = hashlib.sha256(user.password.encode()).hexdigest()
     user_obj = await User.create(**user.dict(exclude_unset=True))
-
-    #save to DB
     return await User_Pydantic.from_tortoise_orm(user_obj)
 
 #Get User from id
@@ -56,3 +52,8 @@ async def get_user(user_id: int):
 @router.get('/user', response_model=User_Pydantic)
 async def get_user(user_username: str):
     return await User.get(username=user_username)
+
+#Get All users
+@router.get('/users', response_model=List[User_Pydantic])
+async def get_users():
+    return await User_Pydantic.from_queryset(User.all())  

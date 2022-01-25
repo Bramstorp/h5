@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .routers import cars
 from .routers import users
+from .routers import carwashes
 
 app = FastAPI()
 
@@ -24,13 +25,14 @@ app.add_middleware(
 
 app.include_router(cars.router)
 app.include_router(users.router)
+app.include_router(carwashes.router)
 
 @app.get("/")
 async def root():
     return "Home"
 
 
-Tortoise.init_models(['app.models.cars', 'app.models.users'], 'models')
+Tortoise.init_models(['app.models.cars', 'app.models.users', 'app.models.carwashes'], 'models')
 
 register_tortoise(
     app, 
@@ -39,6 +41,7 @@ register_tortoise(
         'models': [
             'app.models.cars',
             'app.models.users',
+            'app.models.carwashes'
         ],
     },
     generate_schemas=True,
