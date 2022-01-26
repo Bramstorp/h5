@@ -1,7 +1,9 @@
+from decimal import Decimal
 from http.client import CannotSendRequest
 from socket import CAN_EFF_FLAG
 import string
 from traceback import print_tb
+from unicodedata import decimal
 from fastapi import FastAPI, Depends, HTTPException, status, APIRouter
 from typing import List
 import hashlib
@@ -45,18 +47,18 @@ async def update_carwash(carwash_id: int, carwash_name: str):
 
 # Start carwash
 @router.put('/carwash/start/{carwash_id}', response_model=Carwash_Pydantic)
-async def start_carwash(carwash_id: int):
-    await Carwash.filter(id=carwash_id).update(status="RUNNING")
+async def start_carwash(carwash_id: int, time: str):
+    await Carwash.filter(id=carwash_id).update(status="RUNNING", time=time)
     return await Carwash_Pydantic.from_queryset_single(Carwash.get(id=carwash_id))
 
 # stop carwash
 @router.put('/carwash/stop/{carwash_id}', response_model=Carwash_Pydantic)
-async def stop_carwash(carwash_id: int):
-    await Carwash.filter(id=carwash_id).update(status="STOPPED")
+async def stop_carwash(carwash_id: int, time: str):
+    await Carwash.filter(id=carwash_id).update(status="STOPPED", time=time)
     return await Carwash_Pydantic.from_queryset_single(Carwash.get(id=carwash_id))
 
 # Open carwash
 @router.put('/carwash/running/{carwash_id}', response_model=Carwash_Pydantic)
-async def free_carwash(carwash_id: int):
-    await Carwash.filter(id=carwash_id).update(status="FREE")
+async def free_carwash(carwash_id: int, time: str):
+    await Carwash.filter(id=carwash_id).update(status="FREE", time=time)
     return await Carwash_Pydantic.from_queryset_single(Carwash.get(id=carwash_id))
