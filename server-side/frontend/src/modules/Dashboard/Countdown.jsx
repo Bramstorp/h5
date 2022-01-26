@@ -52,7 +52,7 @@ export const Countdown = ({ minutes = 0, seconds = 0 }) => {
     useEffect(() => {
       let timerID = setInterval(() => tick(), 1000);
       return () => clearInterval(timerID);
-      });
+    });
   
     return (
       <div>
