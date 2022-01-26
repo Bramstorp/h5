@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-export const Countdown = ({ minutes = 0, seconds = 0 }) => {
+export const Countdown = ({ id, countdownTime }) => {
     const [paused, setPaused] = useState(false);
     const [over, setOver] = useState(false);
     const [time, setTime] = useState({
-      minutes: parseInt(minutes, 10),
-      seconds: parseInt(seconds, 10)
+      minutes: parseInt(countdownTime[0], 10),
+      seconds: parseInt(countdownTime[1], 10)
     });
-  
+
+    console.log(id)
+
     const tick = () => {
       if (paused || over) return;
   
@@ -33,8 +35,8 @@ export const Countdown = ({ minutes = 0, seconds = 0 }) => {
   
     const stop = () => {
       setTime({
-        minutes: parseInt(minutes),
-        seconds: parseInt(seconds)
+        minutes: parseInt(0),
+        seconds: parseInt(0)
       });
       setPaused(false);
       setOver(false);
@@ -48,6 +50,25 @@ export const Countdown = ({ minutes = 0, seconds = 0 }) => {
         setPaused(false);
         setOver(false);
     };
+
+    const pause = async () => {
+      const data = {
+        "id": id,
+        "name": "string",
+        "status": "STOPPED",
+        "time": `${time.minutes}:${time.seconds}`
+      }
+      const config = {
+          method: 'PUT',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+      }
+      //const response = await fetch(url, config)
+      setPaused(true)
+    }
   
     useEffect(() => {
       let timerID = setInterval(() => tick(), 1000);
@@ -60,7 +81,7 @@ export const Countdown = ({ minutes = 0, seconds = 0 }) => {
           .toString()
           .padStart(2, "0")}:${time.seconds.toString().padStart(2, "0")}`}</p>
         <div className="text-center">{over ? "NOT RUNNING" : ""}</div>
-        <div class="row">
+        <div className="row">
           <button
             className="btn m-2 col btn-light"
             onClick={() => start(29, 59)}
@@ -69,7 +90,7 @@ export const Countdown = ({ minutes = 0, seconds = 0 }) => {
           </button>
           <button
             className="btn m-2 col btn-light"
-            onClick={() => setPaused(!paused)}
+            onClick={() => pause()}
           >
             {paused ? "Resume" : "Pause"}
           </button>

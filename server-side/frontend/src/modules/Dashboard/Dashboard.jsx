@@ -46,7 +46,7 @@ export const Dashboard = () => {
                 <h5 className="card-title text-center">{wash.name}</h5>
                 <p className="card-text">STATUS: {wash.status}</p>
                 <p className="card-text">USER: {wash.user}</p>
-                <Countdown minutes={0} seconds={0} />
+                <Countdown id={wash.id} countdownTime={wash.time.split(",")} />
               </div>
             </div>
           </div>
