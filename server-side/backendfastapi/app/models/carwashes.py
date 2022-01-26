@@ -9,4 +9,4 @@ class Carwash(Model):
     name = fields.CharField(50)
     status = fields.CharField(50, default="FREE")
     time = fields.IntField()
-    user = fields.ForeignKeyField("models.User", related_name="user")
+    #user = fields.ForeignKeyField("models.User", related_name="user")

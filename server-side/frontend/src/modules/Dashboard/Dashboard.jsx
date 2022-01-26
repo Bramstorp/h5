@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Countdown } from "./Countdown"
 
 export const Dashboard = () => {
   const [washers, setWashers] = useState([])
@@ -45,11 +46,7 @@ export const Dashboard = () => {
                 <h5 className="card-title text-center">{wash.name}</h5>
                 <p className="card-text">STATUS: {wash.status}</p>
                 <p className="card-text">USER: {wash.user}</p>
-              </div>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn m-2 btn-light">START</button>
-                <button type="button" class="btn m-2 btn-light">PAUSE</button>
-                <button type="button" class="btn m-2 btn-light">STOP</button>
+                <Countdown />
               </div>
             </div>
           </div>
