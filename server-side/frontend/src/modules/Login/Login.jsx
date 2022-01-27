@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Login.style.css"
 import { Link } from "react-router-dom";
+import { AuthenticationContext } from "../../service/authentication/authentication.context";
 
 export const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-
-  const userLogin = () => {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-  };
-  fetch(`http://localhost:8000/login?username=${username}&password=${password}`, requestOptions)
-    .then(response => response.json())
-    .then(res => console.log(res));
-  }
+  const { onLogin } = useContext(AuthenticationContext);
 
   return (
     <div className="row d-flex justify-content-center align-items-center h-100 login-container">
@@ -35,7 +27,7 @@ export const Login = () => {
                 <label className="form-label" htmlFor="typePasswordX">Password</label>
               </div>
 
-              <button className="btn btn-outline-light btn-lg px-5" onClick={() => userLogin()}>Login</button>
+              <button className="btn btn-outline-light btn-lg px-5" onClick={() => onLogin(username, password)}>Login</button>
               <p className="mb-0">Don't have an account?<Link className="text-white-50 fw-bold" to="/Signup">Sign Up</Link></p>
             </div>
           </div>
