@@ -6,7 +6,7 @@ export const AdminRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            fetchToken() && fetchToken().user.role === 1 ? (
+            fetchToken() ? (
                 <Component {...props} />
             ) : (
                 <Redirect

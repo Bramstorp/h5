@@ -1,11 +1,8 @@
 import { Redirect } from "react-router-dom"
 
-export const setToken = (token)=>{
-    localStorage.setItem('temitope', token)
-}
 
-export const fetchToken = ()=>{
-    return localStorage.getItem('temitope')
+export const fetchToken = () =>{
+    return localStorage.getItem('jwt')
 }
 
 export function RequireToken({children}){
