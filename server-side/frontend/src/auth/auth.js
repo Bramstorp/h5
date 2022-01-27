@@ -19,7 +19,25 @@ export const isAdmin = () =>{
       .then(res => {
         if(res.is_admin === true){
             return true
+        } else {
+            return false
         }
+      })
+}
+
+export const getUser = () =>{
+    const value = JSON.parse(fetchToken())
+    const requestOptions = {
+        method: "GET",
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      };
+      fetch(`http://localhost:8000/users/me?token=${JSON.parse(value).access_token}`, requestOptions)
+      .then(response => response.json())
+      .then(res => {
+        return res.json()
       })
 }
 
