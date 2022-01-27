@@ -38,6 +38,7 @@ export const Countdown = ({ id, countdownTime }) => {
       });
       setPaused(false);
       setOver(false);
+      
     };
 
     const start = (min, sec) => {
