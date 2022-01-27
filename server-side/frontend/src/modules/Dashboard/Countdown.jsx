@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 
-export const Countdown = ({ id, countdownTime }) => {
+export const Countdown = ({ id, countdownTime, childFunc  }) => {
     const [paused, setPaused] = useState(false);
     const [over, setOver] = useState(false);
     const [time, setTime] = useState({
       minutes: parseInt(countdownTime[0], 10),
       seconds: parseInt(countdownTime[1], 10)
     });
+  
+    let ws = null
+    useEffect(() => {
+      ws = new WebSocket("ws://localhost:8000/ws");
+      ws.onopen = () => ws.send("Connected");
+    }, []);
 
     const tick = () => {
       if (paused || over) return;
@@ -32,6 +38,11 @@ export const Countdown = ({ id, countdownTime }) => {
     };
   
     const stop = () => {
+      ws = new WebSocket("ws://localhost:8000/ws");
+      ws.onopen = () => ws.send("Connected");
+      ws.onmessage = (event) => {
+        console.log(event.data);
+      };
       setTime({
         minutes: parseInt(0),
         seconds: parseInt(0)

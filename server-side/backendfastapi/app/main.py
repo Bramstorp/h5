@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket, Request
 from tortoise.contrib.fastapi import register_tortoise
 from tortoise import Tortoise
 from fastapi.middleware.cors import CORSMiddleware
@@ -31,6 +31,26 @@ app.include_router(carwashes.router)
 async def root():
     return "Home"
 
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    print('Accepting client connection...')
+    await websocket.accept()
+    while True:
+        try:
+            # Wait for any message from the client
+            data=await websocket.receive_text()
+            print(data)
+            # Send message to the client
+
+            data = {
+                "test": "test"
+            }
+            await websocket.send_json(data)
+            print("Sending")
+        except Exception as e:
+            print('error:', e)
+            break
+    print('Bye..')
 
 Tortoise.init_models(['app.models.cars', 'app.models.users', 'app.models.carwashes'], 'models')
 

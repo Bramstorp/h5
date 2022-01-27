@@ -4,7 +4,7 @@ import { Countdown } from "./Countdown"
 export const Dashboard = () => {
   const [washers, setWashers] = useState([])
 
-  useEffect(() => {
+  const fetchData = async () => {
     const requestOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -16,6 +16,10 @@ export const Dashboard = () => {
       setWashers(json)
     }
     fetchData().catch(console.error)
+  }
+
+  useEffect(() => {
+    fetchData()
   }, [])
 
   const carColor = (washinghalls) => {
