@@ -7,6 +7,7 @@ import { Layout } from "./layout/layout";
 import { Home } from "./modules/Home/Home"
 import { Dashboard } from "./modules/Dashboard/Dashboard"
 import { Login } from "./modules/Login/Login"
+import { Signup } from "./modules/Signup/Signup"
 
 function App() {
     return ( 
@@ -16,6 +17,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

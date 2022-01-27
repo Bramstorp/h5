@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Login.style.css"
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const [username, setUsername] = useState("")
@@ -37,7 +38,7 @@ export const Login = () => {
               </div>
 
               <button className="btn btn-outline-light btn-lg px-5" onClick={() => userLogin()}>Login</button>
-              <p className="mb-0">Don't have an account? <a href="#!" className="text-white-50 fw-bold">Sign Up</a></p>
+              <p className="mb-0">Don't have an account?<Link className="text-white-50 fw-bold" to="/Signup">Sign Up</Link></p>
             </div>
           </div>
         </div>
