@@ -7,7 +7,14 @@ export const Login = () => {
 
   const userLogin = () => 
   {
-    
+    const requestOptions = {
+      method: 'POST'
+  };
+  const requestUrl = 'http://localhost:8000/login?username=' + username + '&password=' + password
+  console.log(requestUrl)
+  fetch(requestUrl, requestOptions)
+      .then(response => response.json())
+      console.log(response.json())
   }
 
   return (
