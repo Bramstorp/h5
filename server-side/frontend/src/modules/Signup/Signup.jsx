@@ -29,10 +29,6 @@ export const Signup = () => {
     }
   }
 
-  const handleSubmit = e => {
-
-  };
-
   return (
         <section className="vh-100 gradient-custom">
             <div className="row d-flex justify-content-center align-items-center h-100">

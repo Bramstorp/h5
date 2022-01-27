@@ -6,16 +6,14 @@ export const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
-  const userLogin = () => 
-  {
-    const requestOptions = {
-      method: 'POST'
+  const userLogin = () => {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
   };
-  const requestUrl = 'http://localhost:8000/login?username=' + username + '&password=' + password
-  console.log(requestUrl)
-  fetch(requestUrl, requestOptions)
-      .then(response => response.json())
-      console.log(response.json())
+  fetch(`http://localhost:8000/login?username=${username}&password=${password}`, requestOptions)
+    .then(response => response.json())
+    .then(res => console.log(res));
   }
 
   return (
