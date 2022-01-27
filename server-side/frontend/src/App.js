@@ -8,6 +8,7 @@ import { Home } from "./modules/Home/Home"
 import { Dashboard } from "./modules/Dashboard/Dashboard"
 import { Login } from "./modules/Login/Login"
 import { Signup } from "./modules/Signup/Signup"
+import { Usersite } from "./modules/Usersite/Usersite"
 import { AuthenticationContextProvider } from "./service/authentication/authentication.context";
 
 
@@ -21,6 +22,7 @@ function App() {
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
+              <Route exact path="/user" component={Usersite} />
               <Route component={NotFound} />
             </Switch>
           </Layout>

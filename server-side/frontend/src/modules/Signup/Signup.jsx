@@ -8,7 +8,7 @@ export const Signup = () => {
   const userSignup = () => 
   {
     if (password1 !== password2){
-        console.log("nippa")
+     
     } else {
         const data = {
             "name": username,
