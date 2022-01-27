@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
-export const Countdown = ({ id, countdownTime, childFunc  }) => {
+export const Countdown = ({ id, countdownTime, handleChange  }) => {
     const [paused, setPaused] = useState(false);
     const [over, setOver] = useState(false);
     const [time, setTime] = useState({
       minutes: parseInt(countdownTime[0], 10),
       seconds: parseInt(countdownTime[1], 10)
     });
-  
-    let ws = null
-    useEffect(() => {
-      ws = new WebSocket("ws://localhost:8000/ws");
-      ws.onopen = () => ws.send("Connected");
-    }, []);
 
     const tick = () => {
       if (paused || over) return;
@@ -36,21 +30,34 @@ export const Countdown = ({ id, countdownTime, childFunc  }) => {
         });
       }
     };
-  
+
+    const callBack = useCallback(
+      () =>
+        handleChange([
+          {
+            id: id,
+            time: time,
+          },
+        ]),
+      [
+        handleChange,
+        [
+          {
+            id: id,
+            time: time,
+          },
+        ],
+      ]
+    );
+
     const stop = () => {
-      ws = new WebSocket("ws://localhost:8000/ws");
-      ws.onopen = () => ws.send("Connected");
-      ws.onmessage = (event) => {
-        console.log(event.data);
-      };
       setTime({
         minutes: parseInt(0),
         seconds: parseInt(0)
       });
       setPaused(false);
       setOver(false);
-      
-    };
+    }
 
     const start = (min, sec) => {
         setTime({
@@ -104,7 +111,7 @@ export const Countdown = ({ id, countdownTime, childFunc  }) => {
           >
             {paused ? "Resume" : "Pause"}
           </button>
-          <button className="btn m-2 col btn-light" onClick={() => stop()}>
+          <button className="btn m-2 col btn-light" onClick={() => { callBack(); stop();}}>
             Stop
           </button>
         </div>

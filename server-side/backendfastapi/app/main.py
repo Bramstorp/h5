@@ -2,10 +2,13 @@ from fastapi import FastAPI, WebSocket, Request
 from tortoise.contrib.fastapi import register_tortoise
 from tortoise import Tortoise
 from fastapi.middleware.cors import CORSMiddleware
+from typing import List
 
 from .routers import cars
 from .routers import users
 from .routers import carwashes
+from .models.carwashes import Carwash
+from .schemas.carwashes import Carwash_Pydantic
 
 app = FastAPI()
 
@@ -41,7 +44,8 @@ async def websocket_endpoint(websocket: WebSocket):
             data=await websocket.receive_text()
             print(data)
             # Send message to the client
-
+            test = list[Carwash.all()]
+            print(test)
             data = {
                 "test": "test"
             }

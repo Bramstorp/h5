@@ -18,6 +18,38 @@ export const Dashboard = () => {
     fetchData().catch(console.error)
   }
 
+  let ws = null
+  const handleChange = async (value) => {
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+  };
+    const response = await fetch("http://localhost:8000/carwash/stop/1?time=00%2C00", requestOptions);
+    const data = await response.json();
+
+    ws = new WebSocket("ws://localhost:8000/ws");
+    ws.onopen = () => ws.send("Connected");
+    ws.onmessage = (event) => {
+      console.log(event);
+    };
+    const test = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+  };
+
+    const fetchData = async () => {
+      const response = await fetch("http://localhost:8000/carwashes", test);
+      const json = await response.json();
+      setWashers(json)
+    }
+    fetchData().catch(console.error)
+    
+    return data;
+  };
+
   useEffect(() => {
     fetchData()
   }, [])
@@ -55,7 +87,7 @@ export const Dashboard = () => {
                 <h5 className="card-title text-center">{wash.name}</h5>
                 <p className="card-text">STATUS: {wash.status}</p>
                 <p className="card-text">USER: {wash.user}</p>
-                <Countdown id={wash.id} countdownTime={wash.time.split(",")} />
+                <Countdown handleChange={handleChange} id={wash.id} countdownTime={wash.time.split(",")} />
               </div>
             </div>
           </div>
