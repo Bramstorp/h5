@@ -27,7 +27,7 @@ async def authenticate_user(username: str, password: str):
         return False
     return user 
 
-async def get_current_user(token: str = Depends(oauth2_scheme)):
+async def get_current_user(token: str):
     try:
         payload = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
         user = await User.get(id=payload.get('id'))

@@ -2,7 +2,25 @@ import { Redirect } from "react-router-dom"
 
 
 export const fetchToken = () =>{
-    return localStorage.getItem('jwt')
+    return JSON.stringify(localStorage.getItem('jwt'))
+}
+
+export const isAdmin = () =>{
+    const value = JSON.parse(fetchToken())
+    const requestOptions = {
+        method: "GET",
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      };
+      fetch(`http://localhost:8000/users/me?token=${JSON.parse(value).access_token}`, requestOptions)
+      .then(response => response.json())
+      .then(res => {
+        if(res.is_admin === true){
+            return true
+        }
+      })
 }
 
 export function RequireToken({children}){
