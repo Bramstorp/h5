@@ -5,8 +5,13 @@ export const Dashboard = () => {
   const [washers, setWashers] = useState([])
 
   useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+  };
+
     const fetchData = async () => {
-      const response = await fetch("http://localhost:8000/carwashes");
+      const response = await fetch("http://localhost:8000/carwashes", requestOptions);
       const json = await response.json();
       setWashers(json)
     }
