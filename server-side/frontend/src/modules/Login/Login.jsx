@@ -11,12 +11,10 @@ export const Login = () => {
     
   }
 
-
   return (
-<section className="vh-100 gradient-custom">
-    <div className="row d-flex justify-content-center align-items-center h-100">
+    <div className="row d-flex justify-content-center align-items-center h-100 login-container">
       <div className="col-12 col-md-8 col-lg-6 col-xl-5 login-box">
-        <div className="card bg-dark text-white">
+        <div className="card bg-dark text-white login-box">
           <div className="card-body p-5 text-center login-box">
             <div className="mb-md-5 mt-md-4 pb-5">
               <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
@@ -32,8 +30,6 @@ export const Login = () => {
                 <label className="form-label" htmlFor="typePasswordX">Password</label>
               </div>
 
-              <p className="small mb-5 pb-lg-2"><a className="text-white-50" href="#!">Forgot password?</a></p>
-
               <button className="btn btn-outline-light btn-lg px-5" onClick={() => userLogin()}>Login</button>
               <p className="mb-0">Don't have an account?<Link className="text-white-50 fw-bold" to="/Signup">Sign Up</Link></p>
             </div>
@@ -41,6 +37,5 @@ export const Login = () => {
         </div>
       </div>
     </div>
-</section>
   );
 };
