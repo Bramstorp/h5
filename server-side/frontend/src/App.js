@@ -11,6 +11,8 @@ import { Signup } from "./modules/Signup/Signup"
 import { Usersite } from "./modules/Usersite/Usersite"
 import { AuthenticationContextProvider } from "./service/authentication/authentication.context";
 
+import { PrivateRoute } from './auth/PrivateRoute'
+import { AdminRoute } from './auth/AdminRoute'
 
 function App() {
     return ( 
@@ -19,10 +21,10 @@ function App() {
           <Layout>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/dashboard" component={Dashboard} />
+              <AdminRoute  exact path="/dashboard" component={Dashboard} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
-              <Route exact path="/user" component={Usersite} />
+              <PrivateRoute exact path="/user" component={Usersite} />
               <Route component={NotFound} />
             </Switch>
           </Layout>

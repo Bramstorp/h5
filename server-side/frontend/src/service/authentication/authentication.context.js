@@ -7,6 +7,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const onLogin = (username, password) => {
     var details = {
@@ -41,20 +42,35 @@ export const AuthenticationContextProvider = ({ children }) => {
       })
   };
 
-  const onRegister = (fullName, email, password, repeatedPassword) => {
+  const onRegister = (username, password) => {
+    var data = {
+      "name": "string",
+      "password_hash": password,
+      "username": username,
+      "is_subscribed": false,
+      "is_admin": false
+    }
+    const requestOptions = {
+        method: "POST",
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      };
+      fetch(`http://localhost:8000/users`, requestOptions)
+      .then(response => {
+        if (response.status === 200){
+          setSuccess(true)
+        } else {
+          setError(response)
+        }
+      })
   };
 
-  const onSignout = next => {
+  const onSignout = () => {
     if (typeof window !== 'undefined') {
         localStorage.removeItem('jwt');
-        next();
-        return fetch(`http://localhost:8000/signout`, {
-            method: 'GET'
-        })
-            .then(response => {
-                console.log('signout', response);
-            })
-            .catch(err => console.log(err));
     }
 };
 
@@ -77,6 +93,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         user,
         isLoading,
         error,
+        success,
         onLogin,
         onRegister,
         onSignout,

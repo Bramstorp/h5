@@ -5,11 +5,10 @@ from passlib.hash import bcrypt
 
 class User(Model):
     id = fields.IntField(pk=True)
-    name = fields.CharField(100, unique=True)
+    name = fields.CharField(100)
     password_hash = fields.CharField(100)
-    username = fields.CharField(100)
-    is_subscribed = fields.BooleanField(default=True)
-    salt = fields.CharField(100, default="")
+    username = fields.CharField(100, unique=True)
+    is_subscribed = fields.BooleanField(default=False)
     is_admin = fields.BooleanField(default=False)
     
     def verify_password(self, password):
