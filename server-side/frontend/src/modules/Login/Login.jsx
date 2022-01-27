@@ -1,54 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import "./Login.style.css"
 import { Link, Redirect } from "react-router-dom";
 import { AuthenticationContext } from "../../service/authentication/authentication.context";
+import { isAuthenticated } from "../../auth/auth"
 
 export const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [redirect, setRedirect] = useState(false)
-  const { isAuthenticated } = useContext(AuthenticationContext);
-
-  
-  const onLogin = (username, password) => {
-    var details = {
-      grant_type: "",
-      username: username,
-      password: password,
-      scope: "",
-      client_id: "",
-      client_secret: "",
-    };
-
-    var formBody = [];
-    for (var property in details) {
-    var encodedKey = encodeURIComponent(property);
-    var encodedValue = encodeURIComponent(details[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-
-    const requestOptions = {
-        method: "POST",
-        headers: { 
-          'Accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formBody
-      };
-      fetch(`http://localhost:8000/token`, requestOptions)
-      .then(response => response.json())
-      .then(res => {
-        if (res["access_token"]){
-          localStorage.setItem('jwt', JSON.stringify(res));
-          setRedirect(true)
-        }
-      })
-  };
+  const { onLogin, redirect } = useContext(AuthenticationContext);
 
   return (
     <>
-    {redirect || isAuthenticated() ? (
+    {isAuthenticated() || redirect ? (
       <Redirect to={'/'}/>
     ): ""}
     <div className="row d-flex justify-content-center align-items-center h-100 login-container">

@@ -7,7 +7,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
+  const [redirect, setRedirect] = useState(null);
 
   const onLogin = (username, password) => {
     var details = {
@@ -40,6 +40,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       .then(res => {
         localStorage.setItem('jwt', JSON.stringify(res));
       })
+      setRedirect(true)
   };
 
   const onRegister = (username, password) => {
@@ -59,13 +60,6 @@ export const AuthenticationContextProvider = ({ children }) => {
         body: JSON.stringify(data)
       };
       fetch(`http://localhost:8000/users`, requestOptions)
-      .then(response => {
-        if (response.status === 200){
-          setSuccess(true)
-        } else {
-          setError(response)
-        }
-      })
   };
 
   const onSignout = () => {
@@ -73,27 +67,13 @@ export const AuthenticationContextProvider = ({ children }) => {
         localStorage.removeItem('jwt');
     }
 };
-
-  const isAuthenticated = () => {
-    if (typeof window == 'undefined') {
-        return false;
-    }
-    if (localStorage.getItem('jwt')) {
-        return JSON.parse(localStorage.getItem('jwt'));
-    } else {
-        return false;
-    }
-  };
-  
-
   return (
     <AuthenticationContext.Provider
       value={{
-        isAuthenticated,
+        redirect,
         user,
         isLoading,
         error,
-        success,
         onLogin,
         onRegister,
         onSignout,

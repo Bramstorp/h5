@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Route, Redirect } from "react-router-dom"
-import { fetchToken } from "./index"
+import { fetchToken } from "./auth"
 
 export const AdminRoute = ({ component: Component, ...rest }) => (
     <Route
