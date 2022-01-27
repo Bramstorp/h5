@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthenticationContext } from "../service/authentication/authentication.context";
-import { isAuthenticated } from "../auth/auth"
+import { isAuthenticated, isAdmin } from "../auth/auth"
 
 
 export const Navbar = () => {
   const { onSignout, redirect } = useContext(AuthenticationContext);
-
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
       <div className="container">

@@ -2,12 +2,11 @@ import React, { Component } from "react"
 import { Route, Redirect } from "react-router-dom"
 import { isAdmin } from "./auth"
 
-
 export const AdminRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            isAdmin ? (
+            isAdmin() ? (
                 <Component {...props} />
             ) : (
                 <Redirect

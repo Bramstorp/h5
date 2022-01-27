@@ -3,7 +3,11 @@ import { Countdown } from "./Countdown"
 
 export const Dashboard = () => {
   const [washers, setWashers] = useState([])
-  console.log(washers)
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+  
 
   const fetchData = async () => {
     const requestOptions = {
@@ -38,10 +42,6 @@ export const Dashboard = () => {
     }
     fetchData().catch(console.error)
   };
-
-  useEffect(() => {
-    fetchData()
-  }, [])
 
   const carColor = (washinghalls) => {
     let bgColor = "";
