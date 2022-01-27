@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthenticationContext } from "../service/authentication/authentication.context";
 
 export const Navbar = () => {
-  const { isAuthenticated } = useContext(AuthenticationContext);
+  const { isAuthenticated, onLogout } = useContext(AuthenticationContext);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
@@ -37,9 +37,9 @@ export const Navbar = () => {
           </ul>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/Login">
-                Login
-              </Link>
+              {
+                isAuthenticated ? <a href="#" className="nav-link" onClick={() => onLogout()} >Logout</a> : <Link className="nav-link" to="/Login">Login</Link>
+              }
             </li>
           </ul>
         </div>

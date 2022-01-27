@@ -1,12 +1,12 @@
-import string
-from traceback import print_tb
-import uuid
+import jwt
+
 from fastapi import FastAPI, Depends, HTTPException, status, APIRouter
-from typing import List
-import hashlib
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from passlib.hash import bcrypt
 
 from ..models.users import User
-from ..schemas.users import User_Pydantic, UserIn_Pydantic
+from ..schemas.users import UserIn_Pydantic, User_Pydantic
+
 
 app = FastAPI()
 
@@ -15,48 +15,49 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-# Login
-@router.post('/login')
-async def login(username: str, password: str):
-    # Get User from DB
+JWT_SECRET = 'myjwtsecret'
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
+
+async def authenticate_user(username: str, password: str):
     user = await User.get(username=username)
+    if not user:
+        return False 
+    if not user.verify_password(password):
+        return False
+    return user 
 
-    # Hash incomming Password
-    hashedPassword = hashlib.sha256(password.encode()).hexdigest() + user.salt
-
-    # Match paswords with user from db
-    if hashedPassword != user.password:
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
+        user = await User.get(id=payload.get('id'))
+    except:
         raise HTTPException(
-            status_code=400,
-            detail="Kodeord matcher ikke"
+            status_code=status.HTTP_401_UNAUTHORIZED, 
+            detail='Invalid username or password'
         )
+    return await User_Pydantic.from_tortoise_orm(user)
 
-    return user
+@router.post('/token')
+async def generate_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = await authenticate_user(form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, 
+            detail='Invalid username or password'
+        )
+    user_obj = await User_Pydantic.from_tortoise_orm(user)
+    token = jwt.encode(user_obj.dict(), JWT_SECRET)
+    return {'access_token' : token, 'token_type' : 'bearer'}
 
-# Create User
-@router.post('/user', response_model=User_Pydantic)
+
+@router.post('/users', response_model=User_Pydantic)
 async def create_user(user: UserIn_Pydantic):
-    
-    # Salt
-    salt = uuid.uuid4().hex
-    user.salt = salt
-
-    #Sha userpassword
-    user.password = hashlib.sha256(user.password.encode()).hexdigest() + salt
-    user_obj = await User.create(**user.dict(exclude_unset=True)) 
+    user_obj = User(**user.dict(exclude_unset=True))
+    user_obj.password_hash = bcrypt.hash(user.password_hash)
+    await user_obj.save()
     return await User_Pydantic.from_tortoise_orm(user_obj)
 
-#Get User from id
-@router.get('/user/{user_id}', response_model=User_Pydantic)
-async def get_user(user_id: int):
-    return await User.get(id=user_id)
-
-#Get User from username
-@router.get('/user', response_model=User_Pydantic)
-async def get_user(user_username: str):
-    return await User.get(username=user_username)
-
-#Get All users
-@router.get('/users', response_model=List[User_Pydantic])
-async def get_users():
-    return await User_Pydantic.from_queryset(User.all())
+@router.get('/users/me', response_model=User_Pydantic)
+async def get_user(user: User_Pydantic = Depends(get_current_user)):
+    return user 

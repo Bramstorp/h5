@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./Login.style.css"
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { AuthenticationContext } from "../../service/authentication/authentication.context";
 
 export const Login = () => {
