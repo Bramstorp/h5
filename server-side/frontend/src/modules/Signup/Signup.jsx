@@ -30,10 +30,9 @@ export const Signup = () => {
   }
 
   return (
-        <section className="vh-100 gradient-custom">
             <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12 col-md-8 col-lg-6 col-xl-5 login-box">
-                <div className="card bg-dark text-white">
+                <div className="card bg-dark text-white login-box">
                 <div className="card-body p-5 text-center login-box">
                         <div className="mb-md-5 mt-md-4 pb-5">
                         <h2 className="fw-bold mb-2 text-uppercase">Signup</h2>
@@ -60,6 +59,5 @@ export const Signup = () => {
                 </div>
             </div>
             </div>
-        </section>
   );
 };
