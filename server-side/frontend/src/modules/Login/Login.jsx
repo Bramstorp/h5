@@ -1,14 +1,12 @@
 import React, { useState, useContext } from "react";
 import "./Login.style.css"
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { AuthenticationContext } from "../../service/authentication/authentication.context";
 
 export const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const { onLogin } = useContext(AuthenticationContext);
-
-  
 
   return (
     <div className="row d-flex justify-content-center align-items-center h-100 login-container">
