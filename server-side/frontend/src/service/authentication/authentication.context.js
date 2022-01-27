@@ -7,7 +7,6 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-
   const onLogin = (username, password) => {
     const requestOptions = {
         method: "POST",
@@ -15,8 +14,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       };
       fetch(`http://localhost:8000/login?username=${username}&password=${password}`, requestOptions)
         .then(response => response.json())
-        .then(res => setUser(res));
-        
+        .then(res => setUser(res));  
   };
 
   const onRegister = (fullName, email, password, repeatedPassword) => {

@@ -33,7 +33,6 @@ async def login(username: str, password: str):
 
     return user
 
-
 # Create User
 @router.post('/user', response_model=User_Pydantic)
 async def create_user(user: UserIn_Pydantic):
@@ -61,6 +60,3 @@ async def get_user(user_username: str):
 @router.get('/users', response_model=List[User_Pydantic])
 async def get_users():
     return await User_Pydantic.from_queryset(User.all())
-
-
-
