@@ -31,9 +31,8 @@ async def login(username: str, password: str):
             detail="Kodeord matcher ikke"
         )
 
-    raise HTTPException(
-            status_code=200,
-        )
+    return user
+
 
 # Create User
 @router.post('/user', response_model=User_Pydantic)
