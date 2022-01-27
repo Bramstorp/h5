@@ -8,8 +8,6 @@ export const Countdown = ({ id, countdownTime }) => {
       seconds: parseInt(countdownTime[1], 10)
     });
 
-    console.log(id)
-
     const tick = () => {
       if (paused || over) return;
   

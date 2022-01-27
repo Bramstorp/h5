@@ -9,8 +9,29 @@ export const Signup = () => {
   {
     if (password1 !== password2){
         console.log("nippa")
+    } else {
+        const data = {
+            "name": username,
+            "password": password1,
+            "username": username,
+            "is_subscribed": false,
+            "salt": "",
+            "is_admin": false
+        };
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        };
+        fetch("http://localhost:8000/user", requestOptions)
+          .then(response => response.json())
+          .then(res => console.log(res));
     }
   }
+
+  const handleSubmit = e => {
+
+  };
 
   return (
         <section className="vh-100 gradient-custom">
