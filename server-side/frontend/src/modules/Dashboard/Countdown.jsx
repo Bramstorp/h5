@@ -3,17 +3,18 @@ import React, { useEffect, useState, useCallback } from "react";
 export const Countdown = ({ id, countdownTime, handleChange  }) => {
     const [paused, setPaused] = useState(false);
     const [over, setOver] = useState(false);
+    const [started, setStarted] = useState(false);
     const [time, setTime] = useState({
       minutes: parseInt(countdownTime[0], 10),
       seconds: parseInt(countdownTime[1], 10)
     });
-
+    
     const tick = () => {
       if (paused || over) return;
   
       if (time.minutes === 0 && time.seconds === 0) {
         setOver(true);
-      } else if (time.minutes === 0 && time.seconds === 0) {
+      }else if (time.minutes === 0 && time.seconds === 0) {
         setTime({
           minutes: 59,
           seconds: 59
@@ -23,13 +24,90 @@ export const Countdown = ({ id, countdownTime, handleChange  }) => {
           minutes: time.minutes - 1,
           seconds: 59
         });
-      } else {
+      }else if (started) {
         setTime({
           minutes: time.minutes,
           seconds: time.seconds - 1
         });
       }
     };
+
+    const stop = async () => {
+      const requestOptions = {
+          method: 'PUT',
+          headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+      };
+      const response = await fetch(`http://localhost:8000/carwash/stop/${id}?time=00%2C00`, requestOptions);
+      const data = await response.json();
+
+      if (time.minutes === 29 && time.seconds === 59){
+        setTime({
+          minutes: parseInt(0),
+          seconds: parseInt(0)
+        });
+      } else {
+        setTime({
+          minutes: 0,
+          seconds: 0
+        });
+      }
+
+      setPaused(false);
+      setOver(false);
+      callBack()
+      return data
+    }
+
+    const start = async (min, sec) => {
+      const requestOptions = {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      };
+      let test1 = null
+      let test2 = null
+      if (time.minutes !== 0 && time.seconds !== 0){
+        test1 = time.minutes
+        test2 = time.seconds
+      } else {
+        test1 = min
+        test2 = sec
+        setTime({
+          minutes: test1,
+          seconds: test2,
+        });
+      }
+      const response = await fetch(
+        `http://localhost:8000/carwash/start/${id}?time=${test1}%2C${test2}`,
+        requestOptions
+      );
+      const data = await response.json();
+      setPaused(false);
+      setOver(false);
+      setStarted(true);
+      callBack()
+      return data;
+    };
+
+    const pause = async () => {
+      const requestOptions = {
+        method: 'PUT',
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+    };
+    const response = await fetch(`http://localhost:8000/carwash/running/${id}?time=${time.minutes}%2C${time.seconds}`, requestOptions);
+    const data = await response.json();
+    setPaused(true)
+    callBack()
+    return data
+    }
 
     const callBack = useCallback(
       () =>
@@ -49,43 +127,6 @@ export const Countdown = ({ id, countdownTime, handleChange  }) => {
         ],
       ]
     );
-
-    const stop = () => {
-      setTime({
-        minutes: parseInt(0),
-        seconds: parseInt(0)
-      });
-      setPaused(false);
-      setOver(false);
-    }
-
-    const start = (min, sec) => {
-        setTime({
-            minutes: parseInt(min),
-            seconds: parseInt(sec)
-        });
-        setPaused(false);
-        setOver(false);
-    };
-
-    const pause = async () => {
-      const data = {
-        "id": id,
-        "name": "string",
-        "status": "STOPPED",
-        "time": `${time.minutes}:${time.seconds}`
-      }
-      const config = {
-          method: 'PUT',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-      }
-      //const response = await fetch(url, config)
-      setPaused(true)
-    }
   
     useEffect(() => {
       let timerID = setInterval(() => tick(), 1000);
@@ -101,17 +142,17 @@ export const Countdown = ({ id, countdownTime, handleChange  }) => {
         <div className="row">
           <button
             className="btn m-2 col btn-light"
-            onClick={() => start(29, 59)}
+            onClick={() => { start(29, 59);}}
           >
             Start
           </button>
           <button
             className="btn m-2 col btn-light"
-            onClick={() => pause()}
+            onClick={() => { pause();}}
           >
-            {paused ? "Resume" : "Pause"}
+            Pause
           </button>
-          <button className="btn m-2 col btn-light" onClick={() => { callBack(); stop();}}>
+          <button className="btn m-2 col btn-light" onClick={() => { stop();}}>
             Stop
           </button>
         </div>

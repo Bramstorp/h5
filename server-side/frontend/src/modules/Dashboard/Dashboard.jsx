@@ -3,6 +3,7 @@ import { Countdown } from "./Countdown"
 
 export const Dashboard = () => {
   const [washers, setWashers] = useState([])
+  console.log(washers)
 
   const fetchData = async () => {
     const requestOptions = {
@@ -20,34 +21,22 @@ export const Dashboard = () => {
 
   let ws = null
   const handleChange = async (value) => {
-    const requestOptions = {
-      method: 'PUT',
-      headers: { 
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-  };
-    const response = await fetch("http://localhost:8000/carwash/stop/1?time=00%2C00", requestOptions);
-    const data = await response.json();
-
     ws = new WebSocket("ws://localhost:8000/ws");
     ws.onopen = () => ws.send("Connected");
     ws.onmessage = (event) => {
       console.log(event);
     };
-    const test = {
+    const settings = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
   };
 
     const fetchData = async () => {
-      const response = await fetch("http://localhost:8000/carwashes", test);
+      const response = await fetch("http://localhost:8000/carwashes", settings);
       const json = await response.json();
       setWashers(json)
     }
     fetchData().catch(console.error)
-    
-    return data;
   };
 
   useEffect(() => {
@@ -64,7 +53,7 @@ export const Dashboard = () => {
         bgColor = "success";
         break;
       case "STOPPED":
-        bgColor = "warning";
+        bgColor = "danger";
         break;
       case "ERROR":
         bgColor = "danger";
