@@ -18,21 +18,16 @@ export const AuthenticationContextProvider = ({ children }) => {
     getUser()
   }, [success])
 
-  const getUser = () =>{
+  const getUser = async () =>{
     const value = JSON.parse(fetchToken())
     if (value){
-      const requestOptions = {
-        method: "GET",
-        headers: { 
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-      };
-      fetch(`http://localhost:8000/users/me?token=${JSON.parse(value).access_token}`, requestOptions)
-      .then(response => response.json())
-      .then(res => {
-        setUser(res)
+      await axios.get(`http://localhost:8000/users/me?token=${JSON.parse(value).access_token}`)
+      .then(function (response) {
+        setUser(response.data)
       })
+      .catch(function (error) {
+        setError(`der skete en opsi:`)
+      });
     }
 }
 
