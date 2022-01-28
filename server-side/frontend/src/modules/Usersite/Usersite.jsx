@@ -11,7 +11,8 @@ export const Usersite = () => {
 
     const fetchUser = () => {
       const value = JSON.parse(fetchToken())
-      const requestOptions = {
+      if (value){
+        const requestOptions = {
           method: "GET",
           headers: { 
             'Accept': 'application/json',
@@ -23,6 +24,7 @@ export const Usersite = () => {
         .then(res => {
           setUser(res)
         })
+      }
     }
 
     const fetchWash = () => {
