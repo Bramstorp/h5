@@ -12,6 +12,15 @@ export function RequireToken({children}){
     return children;
 }
 
+export function HaveToken({children}){
+    let auth = fetchToken()
+    if(auth){
+        return <Navigate to='/user' />;
+    }
+    return children;
+}
+
+
 export const isAuthenticated = () => {
     if (typeof window == 'undefined') {
         return false;

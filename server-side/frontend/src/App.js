@@ -9,7 +9,7 @@ import { Signup } from "./modules/Signup/Signup"
 import { Usersite } from "./modules/Usersite/Usersite"
 import { AuthenticationContextProvider } from "./service/authentication/authentication.context";
 
-import { RequireToken } from "./auth/auth"
+import { RequireToken, HaveToken } from "./auth/auth"
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/dashboard" element={<RequireToken> <Dashboard /> </RequireToken>} />
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<HaveToken> <Login /> </HaveToken>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/user" element={<RequireToken> <Usersite /> </RequireToken>} />
           <Route element={<NotFound />} />
