@@ -28,7 +28,7 @@ export const Wash = ({ wash, handleChange, admin }) => {
         <>
         {wash ? 
         <div className="col-6 mb-4">
-        <div className={`card text-light bg-${carColor(wash)}`}>
+        <div style={{ textAlign: "left" }} className={`card text-light bg-${carColor(wash)}`}>
           <div className="card-body">
             <h5 className="card-title text-center">{wash.name}</h5>
             <p className="card-text">STATUS: {wash.status}</p>

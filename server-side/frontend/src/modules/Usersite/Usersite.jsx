@@ -1,9 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./carwash.card.style.css"
 import { fetchToken } from "../../auth/auth"
 import { Wash } from "../Dashboard/wash"
-import { AuthenticationContext } from "../../service/authentication/authentication.context";
-
 
 export const Usersite = () => {
     const [user, setUser] = useState("")
@@ -60,7 +58,9 @@ export const Usersite = () => {
         </div>
     </div>
   </div>
-  <Wash admin={true} wash={currentWash} handleChange={fetchWash} />
+  <div style={{ textAlign: "-webkit-center" }}>
+    <Wash admin={true} wash={currentWash} handleChange={fetchWash} />
+  </div>
 </div>
   );
 };
