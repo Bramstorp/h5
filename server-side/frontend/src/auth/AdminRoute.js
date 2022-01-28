@@ -1,21 +1,21 @@
-import React, { Component } from "react"
+import React from "react"
 import { Route, Redirect } from "react-router-dom"
-import { isAdmin } from "./auth"
 
-export const AdminRoute = ({ component: Component, ...rest }) => (
+export const AdminRoute = ({ children, isAuthenticated, ...rest }) => (
     <Route
-        {...rest}
-        render={props =>
-            isAdmin() ? (
-                <Component {...props} />
-            ) : (
-                <Redirect
-                    to={{
-                        pathname: "/login",
-                        state: { from: props.location }
-                    }}
-                />
-            )
-        }
+      {...rest}
+      render={
+        ({ location }) => (
+          isAuthenticated ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: '/',
+                state: { from: location }
+              }}
+            />
+          ))
+      }
     />
 );

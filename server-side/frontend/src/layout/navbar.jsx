@@ -39,7 +39,7 @@ export const Navbar = () => {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               {
-                isAuthenticated() || redirect ? <a href="/" className="nav-link" onClick={() => onSignout()} >Logout</a> : <Link className="nav-link" to="/Login">Login</Link>
+                isAuthenticated() || redirect ? <a href="/user" className="nav-link" onClick={() => onSignout()} >Logout</a> : <Link className="nav-link" to="/">Login</Link>
               }
             </li>
           </ul>

@@ -40,37 +40,14 @@ async def get_carwashes():
     return await Carwash_Pydantic.from_queryset(Carwash.all())  
 
 # Rename carwash
-@router.put('/carwash/', response_model=Carwash_Pydantic)
+@router.put('/carwash', response_model=Carwash_Pydantic)
 async def update_carwash(carwash_id: int, carwash_name: str):
     await Carwash.filter(id=carwash_id).update(name=carwash_name)
     return await Carwash_Pydantic.from_queryset_single(Carwash.get(id=carwash_id))
 
-# Start carwash
-@router.put('/carwash/running/{carwash_id}', response_model=Carwash_Pydantic)
-async def start_carwash(carwash_id: int, time: str):
-    await Carwash.filter(id=carwash_id).update(status="RUNNING", time=time)
+# Update carwash
+@router.put('/carwash/update/{carwash_id}', response_model=Carwash_Pydantic)
+async def update_carwash(carwash_id: int, time: str, status):
+    await Carwash.filter(id=carwash_id).update(status=status, time=time)
     return await Carwash_Pydantic.from_queryset_single(Carwash.get(id=carwash_id))
 
-# stop carwash
-@router.put('/carwash/stop/{carwash_id}', response_model=Carwash_Pydantic)
-async def stop_carwash(carwash_id: int, time: str):
-    await Carwash.filter(id=carwash_id).update(status="STOPPED", time=time)
-    return await Carwash_Pydantic.from_queryset_single(Carwash.get(id=carwash_id))
-
-# Pause carwash
-@router.put('/carwash/pause/{carwash_id}', response_model=Carwash_Pydantic)
-async def pause_carwash(carwash_id: int, time: str):
-    await Carwash.filter(id=carwash_id).update(status="PAUSED", time=time)
-    return await Carwash_Pydantic.from_queryset_single(Carwash.get(id=carwash_id))
-
-# Pause carwash
-@router.put('/carwash/free/{carwash_id}', response_model=Carwash_Pydantic)
-async def free_carwash(carwash_id: int, time: str):
-    await Carwash.filter(id=carwash_id).update(status="FREE", time=time)
-    return await Carwash_Pydantic.from_queryset_single(Carwash.get(id=carwash_id))
-
-# Update carwash timer
-@router.put('/carwash/time', response_model=Carwash_Pydantic)
-async def update_carwash_timer(carwash_id: int, carwash_time: str):
-    await Carwash.filter(id=carwash_id).update(time=carwash_time)
-    return await Carwash_Pydantic.from_queryset_single(Carwash.get(id=carwash_id))

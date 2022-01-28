@@ -1,5 +1,6 @@
-import React, { useState, createContext } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState, createContext, useEffect } from "react";
+
+import { fetchToken } from "../../auth/auth"
 
 export const AuthenticationContext = createContext();
 
@@ -7,7 +8,28 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  const [redirect, setRedirect] = useState(null);
+  
+  useEffect(() => {
+    getUser()
+  }, [])
+
+  const getUser = () =>{
+    const value = JSON.parse(fetchToken())
+    if (value){
+      const requestOptions = {
+        method: "GET",
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      };
+      fetch(`http://localhost:8000/users/me?token=${JSON.parse(value).access_token}`, requestOptions)
+      .then(response => response.json())
+      .then(res => {
+        setUser(res)
+      })
+    }
+}
 
   const onLogin = (username, password) => {
     var details = {
@@ -40,7 +62,6 @@ export const AuthenticationContextProvider = ({ children }) => {
       .then(res => {
         localStorage.setItem('jwt', JSON.stringify(res));
       })
-      setRedirect(true)
   };
 
   const onRegister = (username, password) => {
@@ -70,7 +91,6 @@ export const AuthenticationContextProvider = ({ children }) => {
   return (
     <AuthenticationContext.Provider
       value={{
-        redirect,
         user,
         isLoading,
         error,

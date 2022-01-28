@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Wash } from "./wash"
-import { isAdmin } from "../../auth/auth"
+import { Redirect } from "react-router-dom";
+import { AuthenticationContext } from "../../service/authentication/authentication.context";
+import { isAuthenticated } from "../../auth/auth"
 
 export const Dashboard = () => {
   const [washers, setWashers] = useState([])
-  console.log(isAdmin())
+  const { user } = useContext(AuthenticationContext);
 
   useEffect(() => {
     fetchData()
@@ -47,6 +49,8 @@ export const Dashboard = () => {
 
   return (
     <>
+    {user && user.is_admin && isAuthenticated ? (
+      <>
       <h1>Dashboard</h1>
       <div className="row">
         <p>Washing halls</p>
@@ -54,6 +58,8 @@ export const Dashboard = () => {
           <Wash wash={wash} admin={true} handleChange={handleChange} />
         ))}
       </div>
-    </>
+      </>
+    ) : <Redirect to={'/'} />}
+   </>
   );
 };

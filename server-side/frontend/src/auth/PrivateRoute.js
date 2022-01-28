@@ -1,21 +1,21 @@
-import React, { Component } from "react"
+import React from "react"
 import { Route, Redirect } from "react-router-dom"
-import { fetchToken } from "./auth"
 
-export const PrivateRoute = ({ component: Component, ...rest }) => (
+export const PrivateRoute = ({ children, isAuthenticated, ...rest }) => (
     <Route
-        {...rest}
-        render={props =>
-            fetchToken() ? (
-                <Component {...props} />
-            ) : (
-                <Redirect
-                    to={{
-                        pathname: "/login",
-                        state: { from: props.location }
-                    }}
-                />
-            )
-        }
+      {...rest}
+      render={
+        ({ location }) => (
+          isAuthenticated ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: '/',
+                state: { from: location }
+              }}
+            />
+          ))
+      }
     />
 );

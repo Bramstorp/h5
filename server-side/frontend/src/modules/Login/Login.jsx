@@ -7,11 +7,13 @@ import { isAuthenticated } from "../../auth/auth"
 export const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const { onLogin, redirect } = useContext(AuthenticationContext);
+  const { user } = useContext(AuthenticationContext);
+
+  console.log()
 
   return (
     <>
-    {isAuthenticated() || redirect ? (
+    {user ? (
       <Redirect to={'/user'}/>
     ): ""}
     <div className="row d-flex justify-content-center align-items-center h-100 login-container">
