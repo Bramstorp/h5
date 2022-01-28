@@ -100,17 +100,17 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus }
           "Content-Type": "application/json",
         },
       };
-      let test1 = null
-      let test2 = null
+      let current_min = null
+      let current_sec = null
       if (time.minutes !== 0 && time.seconds !== 0){
-        test1 = time.minutes
-        test2 = time.seconds
+        current_min = time.minutes
+        current_sec = time.seconds
       } else {
-        test1 = min
-        test2 = sec
+        current_min = min
+        current_sec = sec
         setTime({
-          minutes: test1,
-          seconds: test2,
+          minutes: current_min,
+          seconds: current_sec,
         });
       }
       const response = await fetch(
