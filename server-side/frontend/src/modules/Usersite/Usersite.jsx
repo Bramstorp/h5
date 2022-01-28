@@ -1,11 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./carwash.card.style.css"
+import {getUser} from "../../auth/auth"
 
 import { AuthenticationContext } from "../../service/authentication/authentication.context";
 
 
 export const Usersite = () => {
-    const { user } = useContext(AuthenticationContext);
+    const [user, setUser] = useState("")
+    useEffect(() => {
+        const currentUser = getUser()
+        setUser(currentUser)
+      }, [])
+      console.log(user)
   return (
 <div>     
 <div className="container mt-4 mb-4 p-3 d-flex justify-content-center">

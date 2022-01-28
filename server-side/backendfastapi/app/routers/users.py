@@ -3,6 +3,7 @@ import jwt
 from fastapi import FastAPI, Depends, HTTPException, status, APIRouter
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from passlib.hash import bcrypt
+from typing import List
 
 from ..models.users import User
 from ..schemas.users import UserIn_Pydantic, User_Pydantic
@@ -61,3 +62,7 @@ async def create_user(user: UserIn_Pydantic):
 @router.get('/users/me', response_model=User_Pydantic)
 async def get_user(user: User_Pydantic = Depends(get_current_user)):
     return user 
+
+@router.get('/users', response_model=List[User_Pydantic])
+async def get_users():
+    return await User_Pydantic.from_queryset(User.all())  
