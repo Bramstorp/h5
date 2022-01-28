@@ -25,7 +25,25 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus }
       if (paused || over) return;
   
       if (time.minutes === 0 && time.seconds === 0) {
-        setOver(true);
+        const req ={
+          method: 'PUT',
+          headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        }
+        if (washStatus === "RUNNING" || washStatus === "FREE"){
+          const response = await fetch(`http://localhost:8000/carwash/free/${id}?time=00%2C00`, req);
+          data = await response.json();
+          callBack()
+          setOver(true);
+        } else {
+          const response = await fetch(`http://localhost:8000/carwash/stop/${id}?time=00%2C00`, req);
+          data = await response.json();
+          callBack()
+          setOver(true);
+        }
+        return data
       }else if (time.minutes === 0 && time.seconds === 0) {
         setTime({
           minutes: 59,
@@ -96,7 +114,7 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus }
         });
       }
       const response = await fetch(
-        `http://localhost:8000/carwash/start/${id}?time=${test1}%2C${test2}`,
+        `http://localhost:8000/carwash/running/${id}?time=${test1}%2C${test2}`,
         requestOptions
       );
       const data = await response.json();
@@ -114,7 +132,7 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus }
           'Content-Type': 'application/json'
         },
     };
-    const response = await fetch(`http://localhost:8000/carwash/running/${id}?time=${time.minutes}%2C${time.seconds}`, requestOptions);
+    const response = await fetch(`http://localhost:8000/carwash/pause/${id}?time=${time.minutes}%2C${time.seconds}`, requestOptions);
     const data = await response.json();
     setPaused(true)
     callBack()

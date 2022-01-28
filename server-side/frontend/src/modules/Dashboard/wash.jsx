@@ -15,8 +15,8 @@ export const Wash = ({ wash, handleChange, admin }) => {
           case "STOPPED":
             bgColor = "danger";
             break;
-          case "ERROR":
-            bgColor = "danger";
+          case "PAUSED":
+            bgColor = "warning";
             break;
           default:
             bgColor = "";
