@@ -48,7 +48,7 @@ export const Usersite = () => {
 <div>     
 <div className="container mt-4 mb-4 p-3 d-flex justify-content-center">
     <div className="card p-4">
-        <div className=" image d-flex flex-column justify-content-center align-items-center"> <button className="btn btn-secondary"> <img src="https://thispersondoesnotexist.com/image" height="100" width="100" /></button> <span className="name mt-3">username: {user.name}</span> 
+        <div className=" image d-flex flex-column justify-content-center align-items-center"> <button className="btn btn-secondary"> <img src="https://thispersondoesnotexist.com/image" height="100" width="100" /></button> <span className="name mt-3">name: {user.name}</span> 
         {user && user.is_subscribed ? (
         <span className="subscription">Subscription active</span>
       ) : (
@@ -58,7 +58,7 @@ export const Usersite = () => {
         </div>
     </div>
   </div>
-  <Wash wash={currentWash} handleChange={fetchWash} />
+  <Wash running={currentWash.status === "RUNNING"} wash={currentWash} handleChange={fetchWash} />
 </div>
   );
 };

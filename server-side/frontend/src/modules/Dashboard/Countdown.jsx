@@ -1,15 +1,26 @@
 import React, { useEffect, useState, useCallback } from "react";
 
-export const Countdown = ({ id, countdownTime, handleChange  }) => {
+export const Countdown = ({ id, countdownTime, handleChange, admin, running }) => {
     const [paused, setPaused] = useState(false);
     const [over, setOver] = useState(false);
-    const [started, setStarted] = useState(false);
     const [time, setTime] = useState({
       minutes: parseInt(countdownTime[0], 10),
       seconds: parseInt(countdownTime[1], 10)
     });
+
+    console.log(running)
     
-    const tick = () => {
+    const tick = async () => {
+      const requestOptions = {
+        method: 'PUT',
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+    };
+    const response = await fetch(`http://localhost:8000/carwash/time?carwash_id=${id}&carwash_time=${time.minutes}%2C${time.seconds}`, requestOptions);
+    const data = await response.json();
+      console.log(time.minutes, time.seconds)
       if (paused || over) return;
   
       if (time.minutes === 0 && time.seconds === 0) {
@@ -24,12 +35,13 @@ export const Countdown = ({ id, countdownTime, handleChange  }) => {
           minutes: time.minutes - 1,
           seconds: 59
         });
-      }else if (started) {
+      }else if (running) {
         setTime({
           minutes: time.minutes,
           seconds: time.seconds - 1
         });
       }
+      return data
     };
 
     const stop = async () => {
@@ -89,7 +101,6 @@ export const Countdown = ({ id, countdownTime, handleChange  }) => {
       const data = await response.json();
       setPaused(false);
       setOver(false);
-      setStarted(true);
       callBack()
       return data;
     };
@@ -152,9 +163,11 @@ export const Countdown = ({ id, countdownTime, handleChange  }) => {
           >
             Pause
           </button>
+          {admin ?
           <button className="btn m-2 col btn-light" onClick={() => { stop();}}>
             Stop
           </button>
+          : ""}
         </div>
       </div>
     );

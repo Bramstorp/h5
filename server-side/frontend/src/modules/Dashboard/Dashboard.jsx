@@ -49,7 +49,7 @@ export const Dashboard = () => {
       <div className="row">
         <p>Washing halls</p>
         {washers.map((wash) => (
-          <Wash wash={wash} handleChange={handleChange} />
+          <Wash wash={wash} handleChange={handleChange} admin={true} />
         ))}
       </div>
     </>
