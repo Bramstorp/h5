@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./carwash.card.style.css"
-import {getUser} from "../../auth/auth"
+import { fetchToken } from "../../auth/auth"
 
 import { AuthenticationContext } from "../../service/authentication/authentication.context";
 
@@ -8,8 +8,19 @@ import { AuthenticationContext } from "../../service/authentication/authenticati
 export const Usersite = () => {
     const [user, setUser] = useState("")
     useEffect(() => {
-        const currentUser = getUser()
-        setUser(currentUser)
+      const value = JSON.parse(fetchToken())
+      const requestOptions = {
+          method: "GET",
+          headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        };
+        fetch(`http://localhost:8000/users/me?token=${JSON.parse(value).access_token}`, requestOptions)
+        .then(response => response.json())
+        .then(res => {
+          setUser(res)
+        })
       }, [])
       console.log(user)
   return (

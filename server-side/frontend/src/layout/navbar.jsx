@@ -35,6 +35,11 @@ export const Navbar = () => {
                 Dashboard
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/user">
+                Usersite
+              </Link>
+            </li>
           </ul>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
