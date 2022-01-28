@@ -9,8 +9,6 @@ export const Login = () => {
   const [password, setPassword] = useState("")
   const { user } = useContext(AuthenticationContext);
 
-  console.log()
-
   return (
     <>
     <div className="row d-flex justify-content-center align-items-center h-100 login-container">
@@ -32,7 +30,7 @@ export const Login = () => {
             </div>
 
             <button className="btn btn-outline-light btn-lg px-5" onClick={() => onLogin(username, password)}>Login</button>
-            <p className="mb-0">Don't have an account?<Link className="text-white-50 fw-bold" to="/Signup">Sign Up</Link></p>
+            <p className="mb-0">Don't have an account? <Link className="text-white-50 fw-bold" to="/Signup">Sign Up</Link></p>
           </div>
         </div>
       </div>

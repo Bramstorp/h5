@@ -14,16 +14,15 @@ export const Signup = () => {
     if (password1 !== password2){
      console.error("FEJL")
     } else {
-      onRegister(username, password1).then((x) => console.log(x))
-      console.log(error)
+      onRegister(username, password1)
     }
   }
 
   return (
     <>
-      {success ? (
-        <div className="alert alert-success">
-          New account is created. Please <Link to="/login">Login</Link>
+      {error ? (
+        <div className="alert alert-danger">
+          {error}
         </div>
       ) : (
         ""

@@ -1,10 +1,14 @@
 import React, { useState, createContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { fetchToken } from "../../auth/auth"
+
+const axios = require('axios').default;
 
 export const AuthenticationContext = createContext();
 
 export const AuthenticationContextProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
@@ -68,21 +72,19 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const onRegister = async (username, password) => {
     setIsLoading(true);
-    var data = {
-      name: username,
-      password_hash: password,
-      username: username,
-      is_subscribed: false,
-      is_admin: false,
-    };
-    return fetch("http://localhost:8000/users", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    axios.post("http://localhost:8000/users", {
+        name: username,
+        password_hash: password,
+        username: username,
+        is_subscribed: false,
+        is_admin: false,
+      })
+      .then(function (response) {
+        navigate("/");
+      })
+      .catch(function (error) {
+        setError(`der skete en opsi:`)
+      });
   };
 
   const onSignout = () => {
