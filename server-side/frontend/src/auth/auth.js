@@ -6,7 +6,7 @@ export const fetchToken = () =>{
 
 export function RequireToken({children}){
     let auth = fetchToken()
-    if(!auth){
+    if(auth === "null"){
         return <Navigate to='/' />;
     }
     return children;

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthenticationContext } from "../service/authentication/authentication.context";
 import { isAuthenticated, isAdmin } from "../auth/auth"
 
@@ -26,20 +26,20 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" to="/Dashboard">
+              <Link className="nav-link" to="/Dashboard">
                 Dashboard
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" to="/user">
+              <Link className="nav-link" to="/user">
                 Usersite
-              </a>
+              </Link>
             </li>
           </ul>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               {
-                isAuthenticated() ? <a href="/user" className="nav-link" onClick={() => onSignout()} >Logout</a> : <a className="nav-link" to="/">Login</a>
+                isAuthenticated() ? <a href="/user" className="nav-link" onClick={() => onSignout()} >Logout</a> : <Link className="nav-link" to="/">Login</Link>
               }
             </li>
           </ul>
