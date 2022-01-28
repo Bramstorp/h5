@@ -114,7 +114,7 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus }
         });
       }
       const response = await fetch(
-        `http://localhost:8000/carwash/running/${id}?time=${test1}%2C${test2}`,
+        `http://localhost:8000/carwash/running/${id}?time=${current_min}%2C${current_sec}`,
         requestOptions
       );
       const data = await response.json();
