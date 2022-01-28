@@ -13,11 +13,10 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     getUser()
-  }, [])
+  }, [success])
 
   const getUser = () =>{
     const value = JSON.parse(fetchToken())
@@ -37,7 +36,7 @@ export const AuthenticationContextProvider = ({ children }) => {
     }
 }
 
-  const onLogin = (username, password) => {
+  const onLogin = async (username, password) => {
     var details = {
       grant_type: "",
       username: username,
@@ -49,25 +48,21 @@ export const AuthenticationContextProvider = ({ children }) => {
 
     var formBody = [];
     for (var property in details) {
-    var encodedKey = encodeURIComponent(property);
-    var encodedValue = encodeURIComponent(details[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
     }
     formBody = formBody.join("&");
 
-    const requestOptions = {
-        method: "POST",
-        headers: { 
-          'Accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formBody
-      };
-      fetch(`http://localhost:8000/token`, requestOptions)
-      .then(response => response.json())
-      .then(res => {
-        localStorage.setItem('jwt', JSON.stringify(res));
-      })
+    await axios.post(`http://localhost:8000/token`, formBody)
+    .then(function (response) {
+      localStorage.setItem("jwt", JSON.stringify(response.data))
+      setSuccess(true)
+      navigate("/user");
+    })
+    .catch(function (error) {
+      setError(`der skete en opsi:`)
+    });
   };
 
   const onRegister = async (username, password) => {
@@ -103,7 +98,6 @@ export const AuthenticationContextProvider = ({ children }) => {
         onLogin,
         onRegister,
         onSignout,
-        message,
         success,
       }}
     >
