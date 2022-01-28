@@ -1,15 +1,27 @@
 import React, { useEffect, useState, useCallback } from "react";
 
-export const Countdown = ({ id, countdownTime, handleChange  }) => {
+export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus }) => {
     const [paused, setPaused] = useState(false);
     const [over, setOver] = useState(false);
-    const [started, setStarted] = useState(false);
     const [time, setTime] = useState({
       minutes: parseInt(countdownTime[0], 10),
       seconds: parseInt(countdownTime[1], 10)
-    });
-    
-    const tick = () => {
+    });    
+
+    const tick = async () => {
+      let data;
+      if (washStatus === "RUNNING" || washStatus === "FREE") {
+        const requestOptions = {
+          method: 'PUT',
+          headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+      };
+      const response = await fetch(`http://localhost:8000/carwash/time?carwash_id=${id}&carwash_time=${time.minutes}%2C${time.seconds}`, requestOptions);
+      data = await response.json();
+      };
+
       if (paused || over) return;
   
       if (time.minutes === 0 && time.seconds === 0) {
@@ -24,12 +36,13 @@ export const Countdown = ({ id, countdownTime, handleChange  }) => {
           minutes: time.minutes - 1,
           seconds: 59
         });
-      }else if (started) {
+      }else if (washStatus === "RUNNING") {
         setTime({
           minutes: time.minutes,
           seconds: time.seconds - 1
         });
       }
+      return data
     };
 
     const stop = async () => {
@@ -89,7 +102,6 @@ export const Countdown = ({ id, countdownTime, handleChange  }) => {
       const data = await response.json();
       setPaused(false);
       setOver(false);
-      setStarted(true);
       callBack()
       return data;
     };
@@ -152,9 +164,11 @@ export const Countdown = ({ id, countdownTime, handleChange  }) => {
           >
             Pause
           </button>
+          {admin ?
           <button className="btn m-2 col btn-light" onClick={() => { stop();}}>
             Stop
           </button>
+          : ""}
         </div>
       </div>
     );

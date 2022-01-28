@@ -1,9 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import { Countdown } from "./Countdown"
 
-export const Wash = ({ wash, handleChange  }) => {
-
-    console.log(wash)
+export const Wash = ({ wash, handleChange, admin }) => {
 
     const carColor = (wash) => {
         let bgColor = "";
@@ -36,7 +34,7 @@ export const Wash = ({ wash, handleChange  }) => {
             <p className="card-text">STATUS: {wash.status}</p>
             <p className="card-text">USER: {wash.user}</p>
             {wash.time ? 
-            <Countdown handleChange={handleChange} id={wash.id} countdownTime={wash.time.split(",")} />
+            <Countdown admin={admin} handleChange={handleChange} id={wash.id} countdownTime={wash.time.split(",")} washStatus={wash.status} />
             : ""}
           </div>
         </div>

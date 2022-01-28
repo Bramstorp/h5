@@ -62,3 +62,9 @@ async def stop_carwash(carwash_id: int, time: str):
 async def free_carwash(carwash_id: int, time: str):
     await Carwash.filter(id=carwash_id).update(status="FREE", time=time)
     return await Carwash_Pydantic.from_queryset_single(Carwash.get(id=carwash_id))
+
+# Update carwash timer
+@router.put('/carwash/time', response_model=Carwash_Pydantic)
+async def update_carwash_timer(carwash_id: int, carwash_time: str):
+    await Carwash.filter(id=carwash_id).update(time=carwash_time)
+    return await Carwash_Pydantic.from_queryset_single(Carwash.get(id=carwash_id))
