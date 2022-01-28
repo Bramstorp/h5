@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthenticationContext } from "../../service/authentication/authentication.context";
 
 export const Signup = () => {
-  const { onRegister, success } = useContext(AuthenticationContext);
+  const { onRegister, success, error } = useContext(AuthenticationContext);
 
   const [username, setUsername] = useState("")
   const [password1, setPassword1] = useState("")
@@ -14,7 +14,8 @@ export const Signup = () => {
     if (password1 !== password2){
      console.error("FEJL")
     } else {
-      onRegister(username, password1)
+      onRegister(username, password1).then((x) => console.log(x))
+      console.log(error)
     }
   }
 

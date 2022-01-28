@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import { AuthenticationContext } from "../service/authentication/authentication.context";
 import { isAuthenticated, isAdmin } from "../auth/auth"
 
 
 export const Navbar = () => {
-  const { onSignout, redirect } = useContext(AuthenticationContext);
+  const { onSignout } = useContext(AuthenticationContext);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
       <div className="container">
@@ -26,20 +26,20 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" to="/Dashboard">
+              <a className="nav-link" to="/Dashboard">
                 Dashboard
-              </Link>
+              </a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/user">
+              <a className="nav-link" to="/user">
                 Usersite
-              </Link>
+              </a>
             </li>
           </ul>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               {
-                isAuthenticated() || redirect ? <a href="/user" className="nav-link" onClick={() => onSignout()} >Logout</a> : <Link className="nav-link" to="/">Login</Link>
+                isAuthenticated() ? <a href="/user" className="nav-link" onClick={() => onSignout()} >Logout</a> : <a className="nav-link" to="/">Login</a>
               }
             </li>
           </ul>

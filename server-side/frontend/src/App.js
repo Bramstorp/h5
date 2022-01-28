@@ -1,6 +1,5 @@
 import React from "react";
-import { Route, Switch, BrowserRouter } from "react-router-dom";
-
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { NotFound } from "./NotFound";
 import { Layout } from "./layout/layout";
 
@@ -10,22 +9,21 @@ import { Signup } from "./modules/Signup/Signup"
 import { Usersite } from "./modules/Usersite/Usersite"
 import { AuthenticationContextProvider } from "./service/authentication/authentication.context";
 
+
 function App() {
-    return ( 
-      <BrowserRouter basename={"/"}>
-        <AuthenticationContextProvider>
-          <Layout>
-            <Switch>
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-              <Route component={Usersite} exact path="/user" />
-              <Route component={NotFound} />
-            </Switch>
-          </Layout>
-        </AuthenticationContextProvider>
-      </BrowserRouter>
-    );
+  return (
+    <AuthenticationContextProvider>
+      <Layout>
+        <Routes>
+          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/" element={<Login />} />
+          <Route exact path="/signup" element={<Signup />} />
+          <Route element={<Usersite />} exact path="/user" />
+          <Route element={<NotFound />} />
+        </Routes>
+      </Layout>
+    </AuthenticationContextProvider>
+  );
 }
 
 export default App;

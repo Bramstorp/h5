@@ -8,7 +8,9 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  
+  const [success, setSuccess] = useState(null);
+  const [message, setMessage] = useState(null);
+
   useEffect(() => {
     getUser()
   }, [])
@@ -64,29 +66,31 @@ export const AuthenticationContextProvider = ({ children }) => {
       })
   };
 
-  const onRegister = (username, password) => {
+  const onRegister = async (username, password) => {
+    setIsLoading(true);
     var data = {
-      "name": "string",
-      "password_hash": password,
-      "username": username,
-      "is_subscribed": false,
-      "is_admin": false
-    }
-    const requestOptions = {
-        method: "POST",
-        headers: { 
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      };
-      fetch(`http://localhost:8000/users`, requestOptions)
+      name: username,
+      password_hash: password,
+      username: username,
+      is_subscribed: false,
+      is_admin: false,
+    };
+    return fetch("http://localhost:8000/users", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
   };
 
   const onSignout = () => {
     if (typeof window !== 'undefined') {
         localStorage.removeItem('jwt');
     }
+    setUser(null)
+    setError(null);
 };
   return (
     <AuthenticationContext.Provider
@@ -97,6 +101,8 @@ export const AuthenticationContextProvider = ({ children }) => {
         onLogin,
         onRegister,
         onSignout,
+        message,
+        success,
       }}
     >
       {children}

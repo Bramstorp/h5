@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./Login.style.css"
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthenticationContext } from "../../service/authentication/authentication.context";
 import { isAuthenticated } from "../../auth/auth"
 
@@ -13,9 +13,6 @@ export const Login = () => {
 
   return (
     <>
-    {user ? (
-      <Redirect to={'/user'}/>
-    ): ""}
     <div className="row d-flex justify-content-center align-items-center h-100 login-container">
     <div className="col-12 col-md-8 col-lg-6 col-xl-5 login-box">
       <div className="card bg-dark text-white login-box">

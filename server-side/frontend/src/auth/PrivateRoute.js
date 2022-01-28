@@ -1,5 +1,5 @@
 import React from "react"
-import { Route, Redirect } from "react-router-dom"
+import { Route, Navigate  } from "react-router-dom"
 
 export const PrivateRoute = ({ children, isAuthenticated, ...rest }) => (
     <Route
@@ -9,11 +9,8 @@ export const PrivateRoute = ({ children, isAuthenticated, ...rest }) => (
           isAuthenticated ? (
             children
           ) : (
-            <Redirect
-              to={{
-                pathname: '/',
-                state: { from: location }
-              }}
+            <Navigate
+              to="/"  state={{ from: location }}
             />
           ))
       }

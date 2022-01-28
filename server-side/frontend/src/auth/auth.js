@@ -1,4 +1,4 @@
-import { Redirect } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 
 export const fetchToken = () =>{
     return JSON.stringify(localStorage.getItem('jwt'))
@@ -7,7 +7,7 @@ export const fetchToken = () =>{
 export function RequireToken({children}){
     let auth = fetchToken()
     if(!auth){
-        return <Redirect to='/' />;
+        return <Navigate to='/' />;
     }
     return children;
 }

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import "./carwash.card.style.css"
 import { Wash } from "../Dashboard/wash"
 import { AuthenticationContext } from "../../service/authentication/authentication.context";
-import { Redirect } from "react-router-dom";
 
 
 export const Usersite = () => {
@@ -57,7 +56,7 @@ export const Usersite = () => {
           <Wash admin={true} wash={currentWash} handleChange={fetchWash} />
         </div>
       </div>
-    : <Redirect to={'/'} />}
+    : ""}
     </>
   );
 };

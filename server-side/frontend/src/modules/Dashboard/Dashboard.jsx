@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Wash } from "./wash"
-import { Redirect } from "react-router-dom";
 import { AuthenticationContext } from "../../service/authentication/authentication.context";
 import { isAuthenticated } from "../../auth/auth"
 
@@ -59,7 +58,7 @@ export const Dashboard = () => {
         ))}
       </div>
       </>
-    ) : <Redirect to={'/'} />}
+    ) : ""}
    </>
   );
 };
