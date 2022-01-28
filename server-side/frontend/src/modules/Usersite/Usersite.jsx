@@ -8,7 +8,7 @@ import { AuthenticationContext } from "../../service/authentication/authenticati
 export const Usersite = () => {
     const [user, setUser] = useState("")
     const [currentWash, setCurrentWash] = useState({})
-    console.log(user)
+
     const fetchUser = () => {
       const value = JSON.parse(fetchToken())
       const requestOptions = {
@@ -58,7 +58,7 @@ export const Usersite = () => {
         </div>
     </div>
   </div>
-  <Wash running={currentWash.status === "RUNNING"} wash={currentWash} handleChange={fetchWash} />
+  <Wash admin={true} wash={currentWash} handleChange={fetchWash} />
 </div>
   );
 };

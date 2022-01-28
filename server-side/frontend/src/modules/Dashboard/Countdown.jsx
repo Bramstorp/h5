@@ -1,26 +1,27 @@
 import React, { useEffect, useState, useCallback } from "react";
 
-export const Countdown = ({ id, countdownTime, handleChange, admin, running }) => {
+export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus }) => {
     const [paused, setPaused] = useState(false);
     const [over, setOver] = useState(false);
     const [time, setTime] = useState({
       minutes: parseInt(countdownTime[0], 10),
       seconds: parseInt(countdownTime[1], 10)
-    });
+    });    
 
-    console.log(running)
-    
     const tick = async () => {
-      const requestOptions = {
-        method: 'PUT',
-        headers: { 
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-    };
-    const response = await fetch(`http://localhost:8000/carwash/time?carwash_id=${id}&carwash_time=${time.minutes}%2C${time.seconds}`, requestOptions);
-    const data = await response.json();
-      console.log(time.minutes, time.seconds)
+      let data;
+      if (washStatus === "RUNNING" || washStatus === "FREE") {
+        const requestOptions = {
+          method: 'PUT',
+          headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+      };
+      const response = await fetch(`http://localhost:8000/carwash/time?carwash_id=${id}&carwash_time=${time.minutes}%2C${time.seconds}`, requestOptions);
+      data = await response.json();
+      };
+
       if (paused || over) return;
   
       if (time.minutes === 0 && time.seconds === 0) {
@@ -35,7 +36,7 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, running }) =
           minutes: time.minutes - 1,
           seconds: 59
         });
-      }else if (running) {
+      }else if (washStatus === "RUNNING") {
         setTime({
           minutes: time.minutes,
           seconds: time.seconds - 1

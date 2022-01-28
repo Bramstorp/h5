@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import { Countdown } from "./Countdown"
 
 export const Wash = ({ wash, handleChange, admin }) => {
@@ -34,7 +34,7 @@ export const Wash = ({ wash, handleChange, admin }) => {
             <p className="card-text">STATUS: {wash.status}</p>
             <p className="card-text">USER: {wash.user}</p>
             {wash.time ? 
-            <Countdown running={wash.status === "RUNNING"} handleChange={handleChange} id={wash.id} countdownTime={wash.time.split(",")} admin={admin} />
+            <Countdown admin={admin} handleChange={handleChange} id={wash.id} countdownTime={wash.time.split(",")} washStatus={wash.status} />
             : ""}
           </div>
         </div>

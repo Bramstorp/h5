@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Wash } from "./wash"
+import { isAdmin } from "../../auth/auth"
 
 export const Dashboard = () => {
   const [washers, setWashers] = useState([])
+  console.log(isAdmin())
 
   useEffect(() => {
     fetchData()
@@ -49,7 +51,7 @@ export const Dashboard = () => {
       <div className="row">
         <p>Washing halls</p>
         {washers.map((wash) => (
-          <Wash wash={wash} handleChange={handleChange} admin={true} />
+          <Wash wash={wash} admin={true} handleChange={handleChange} />
         ))}
       </div>
     </>
