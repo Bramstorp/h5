@@ -72,7 +72,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const onRegister = async (username, password) => {
     setIsLoading(true);
-    axios.post("http://localhost:8000/users", {
+    await axios.post("http://localhost:8000/users", {
         name: username,
         password_hash: password,
         username: username,
