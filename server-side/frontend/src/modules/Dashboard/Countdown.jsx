@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+const axios = require("axios").default;
 
 export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, setCurrentStatus }) => {
     const [paused, setPaused] = useState(false);
@@ -8,6 +9,10 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, 
       seconds: parseInt(countdownTime[1], 10)
     });
 
+    const updateWash = async (min, sec, status) => {
+      await axios.put(`http://localhost:8000/carwash/update/${id}?time=${min}%2C${sec}&status=${status}`)
+    };
+
     const tick = async () => {
       if (paused || over) return;
   
@@ -16,6 +21,7 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, 
           setCurrentStatus("FREE")
         }
         setOver(true);
+        setPaused(true)
       }else if (time.minutes === 0 && time.seconds === 0) {
         setTime({
           minutes: 59,
@@ -27,44 +33,47 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, 
           seconds: 59
         });
       }else {
-        setTime({
-          minutes: time.minutes,
-          seconds: time.seconds - 1
-        });
+        if(washStatus === "RUNNING"){
+          setTime({
+            minutes: time.minutes,
+            seconds: time.seconds - 1
+          });
+        }
       }
     };
 
     const stop = async () => {
-      if (time.minutes === 29 && time.seconds === 59){
-        setTime({
-          minutes: parseInt(0),
-          seconds: parseInt(0)
-        });
-      } else {
-        setTime({
-          minutes: 0,
-          seconds: 0
-        });
-      }
+      setTime({
+        minutes: 0,
+        seconds: 0
+      });
       setCurrentStatus("STOPPED")
       setPaused(false);
       setOver(false);
+      updateWash(0, 0, "STOPPED")
       callBack()
     }
 
     const start = async (min, sec) => {
+      let startMin
+      let startSec
       if (time.minutes === 0 && time.seconds === 0){
+        startMin = min
+        startSec = sec
         setTime({
           minutes: min,
           seconds: sec,
         });
       } else {
+        startMin = time.minutes
+        startSec = time.seconds
         setTime({
           minutes: time.minutes,
           seconds: time.seconds,
         });
       }
       setCurrentStatus("RUNNING")
+      updateWash(startMin, startSec, "RUNNING")
       setPaused(false);
       setOver(false);
       callBack()
@@ -72,6 +81,7 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, 
 
     const pause = async () => {
       setCurrentStatus("PAUSED")
+      updateWash(time.minutes, time.seconds, "PAUSED")
       setPaused(true)
       callBack()
     }
