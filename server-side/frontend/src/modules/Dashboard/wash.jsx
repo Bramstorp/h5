@@ -3,12 +3,12 @@ import { Countdown } from "./Countdown"
 
 export const Wash = ({ wash, handleChange, admin }) => {
   const [state, setState] = useState(wash.status);
-
+  
     const setCurrentStatus = async (updateState) => {
       setState(updateState)
     };
 
-    const carColor = (wash) => {
+    const carColor = (state) => {
         let bgColor = "";
         switch (state) {
           case "RUNNING":
@@ -24,7 +24,7 @@ export const Wash = ({ wash, handleChange, admin }) => {
             bgColor = "warning";
             break;
           default:
-            bgColor = "";
+            bgColor = "FREE";
         }
         return bgColor;
       };
@@ -35,7 +35,7 @@ export const Wash = ({ wash, handleChange, admin }) => {
           <div className="col-6 mb-4">
             <div
               style={{ textAlign: "left" }}
-              className={`card text-light bg-${carColor(wash)}`}
+              className={`card text-light bg-${carColor(wash.status)}`}
             >
               <div className="card-body">
                 <h5 className="card-title text-center">{wash.name}</h5>
