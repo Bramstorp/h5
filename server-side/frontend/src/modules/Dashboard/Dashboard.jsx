@@ -35,8 +35,8 @@ export const Dashboard = () => {
           <h1>Dashboard</h1>
           <div className="row">
             <p>Washing halls</p>
-            {washers.map((wash, index) => (
-              <Wash key={index} wash={wash} admin={true} handleChange={handleChange} />
+            {washers.map((wash) => (
+              <Wash key={wash.id} wash={wash} admin={true} handleChange={handleChange} />
             ))}
           </div>
         </>
