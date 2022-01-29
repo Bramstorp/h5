@@ -7,7 +7,6 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, 
       minutes: parseInt(countdownTime[0], 10),
       seconds: parseInt(countdownTime[1], 10)
     });
-    const [ status, setStatus ] = useState("FREE")
 
     const tick = async () => {
       if (paused || over) return;
@@ -53,8 +52,8 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, 
     const start = async (min, sec) => {
       if (time.minutes === 0 && time.seconds === 0){
         setTime({
-          minutes: 29,
-          seconds: 59,
+          minutes: min,
+          seconds: sec,
         });
       } else {
         setTime({
