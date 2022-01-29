@@ -3,25 +3,25 @@ import "./carwash.card.style.css"
 import { Wash } from "../Dashboard/wash"
 import { AuthenticationContext } from "../../service/authentication/authentication.context";
 
+const axios = require("axios").default;
+
 
 export const Usersite = () => {
     const [currentWash, setCurrentWash] = useState({})
+    const [error, setError] = useState({})
+
     const { user } = useContext(AuthenticationContext);
 
-    const fetchWash = () => {
-      const requestOptions = {
-          method: "GET",
-          headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-        };
-        fetch(`http://localhost:8000/carwash/1`, requestOptions)
-        .then(response => response.json())
-        .then(res => {
-          setCurrentWash(res)
+    const fetchWash = async () => {
+      await axios
+        .get("http://localhost:8000/carwash/1")
+        .then(function (response) {
+          setCurrentWash(response.data);
         })
-    }
+        .catch(function (error) {
+          setError(`No washer found`);
+        });
+    };
 
     useEffect(() => {
       fetchWash()
