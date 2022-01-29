@@ -47,7 +47,7 @@ export const Wash = ({ wash, handleChange, admin }) => {
                     handleChange={handleChange}
                     id={wash.id}
                     countdownTime={wash.time.split(",")}
-                    washStatus={wash.status}
+                    washStatus={status}
                     setCurrentStatus={setCurrentStatus}
                   />
                 ) : (
