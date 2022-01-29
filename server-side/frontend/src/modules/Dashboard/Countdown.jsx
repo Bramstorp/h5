@@ -12,6 +12,9 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, 
       if (paused || over) return;
   
       if (time.minutes === 0 && time.seconds === 0) {
+        if(washStatus === "RUNNING"){
+          setCurrentStatus("FREE")
+        }
         setOver(true);
       }else if (time.minutes === 0 && time.seconds === 0) {
         setTime({
@@ -61,9 +64,9 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, 
           seconds: time.seconds,
         });
       }
+      setCurrentStatus("RUNNING")
       setPaused(false);
       setOver(false);
-      setCurrentStatus("RUNNING")
       callBack()
     };
 

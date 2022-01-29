@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Countdown } from "./Countdown"
 
 export const Wash = ({ wash, handleChange, admin }) => {
-  const [state, setState] = useState(wash.status);
+  const [status, setStatus] = useState(wash.status);
   
     const setCurrentStatus = async (updateState) => {
-      setState(updateState)
+      setStatus(updateState)
     };
 
     const carColor = (state) => {
@@ -24,7 +24,7 @@ export const Wash = ({ wash, handleChange, admin }) => {
             bgColor = "warning";
             break;
           default:
-            bgColor = "FREE";
+            bgColor = "";
         }
         return bgColor;
       };
@@ -35,11 +35,11 @@ export const Wash = ({ wash, handleChange, admin }) => {
           <div className="col-6 mb-4">
             <div
               style={{ textAlign: "left" }}
-              className={`card text-light bg-${carColor(wash.status)}`}
+              className={`card text-light bg-${carColor(status)}`}
             >
               <div className="card-body">
                 <h5 className="card-title text-center">{wash.name}</h5>
-                <p className="card-text">STATUS: {state}</p>
+                <p className="card-text">STATUS: {status}</p>
                 <p className="card-text">USER: {wash.user}</p>
                 {wash.time ? (
                   <Countdown
