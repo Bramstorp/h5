@@ -1,49 +1,19 @@
 import React, { useEffect, useState, useCallback } from "react";
 
-export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus }) => {
+export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, setCurrentStatus }) => {
     const [paused, setPaused] = useState(false);
     const [over, setOver] = useState(false);
     const [time, setTime] = useState({
       minutes: parseInt(countdownTime[0], 10),
       seconds: parseInt(countdownTime[1], 10)
-    });    
+    });
+    const [ status, setStatus ] = useState("FREE")
 
     const tick = async () => {
-      let data;
-      if (washStatus === "RUNNING" || washStatus === "FREE") {
-        const requestOptions = {
-          method: 'PUT',
-          headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-      };
-      const response = await fetch(`http://localhost:8000/carwash/time?carwash_id=${id}&carwash_time=${time.minutes}%2C${time.seconds}`, requestOptions);
-      data = await response.json();
-      };
-
       if (paused || over) return;
   
       if (time.minutes === 0 && time.seconds === 0) {
-        const req ={
-          method: 'PUT',
-          headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-        }
-        if (washStatus === "RUNNING" || washStatus === "FREE"){
-          const response = await fetch(`http://localhost:8000/carwash/free/${id}?time=00%2C00`, req);
-          data = await response.json();
-          callBack()
-          setOver(true);
-        } else {
-          const response = await fetch(`http://localhost:8000/carwash/stop/${id}?time=00%2C00`, req);
-          data = await response.json();
-          callBack()
-          setOver(true);
-        }
-        return data
+        setOver(true);
       }else if (time.minutes === 0 && time.seconds === 0) {
         setTime({
           minutes: 59,
@@ -54,26 +24,15 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus }
           minutes: time.minutes - 1,
           seconds: 59
         });
-      }else if (washStatus === "RUNNING") {
+      }else {
         setTime({
           minutes: time.minutes,
           seconds: time.seconds - 1
         });
       }
-      return data
     };
 
     const stop = async () => {
-      const requestOptions = {
-          method: 'PUT',
-          headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-      };
-      const response = await fetch(`http://localhost:8000/carwash/stop/${id}?time=00%2C00`, requestOptions);
-      const data = await response.json();
-
       if (time.minutes === 29 && time.seconds === 59){
         setTime({
           minutes: parseInt(0),
@@ -85,58 +44,34 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus }
           seconds: 0
         });
       }
-
+      setCurrentStatus("STOPPED")
       setPaused(false);
       setOver(false);
       callBack()
-      return data
     }
 
     const start = async (min, sec) => {
-      const requestOptions = {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      };
-      let current_min = null
-      let current_sec = null
-      if (time.minutes !== 0 && time.seconds !== 0){
-        current_min = time.minutes
-        current_sec = time.seconds
-      } else {
-        current_min = min
-        current_sec = sec
+      if (time.minutes === 0 && time.seconds === 0){
         setTime({
-          minutes: current_min,
-          seconds: current_sec,
+          minutes: 29,
+          seconds: 59,
+        });
+      } else {
+        setTime({
+          minutes: time.minutes,
+          seconds: time.seconds,
         });
       }
-      const response = await fetch(
-        `http://localhost:8000/carwash/running/${id}?time=${current_min}%2C${current_sec}`,
-        requestOptions
-      );
-      const data = await response.json();
       setPaused(false);
       setOver(false);
+      setCurrentStatus("RUNNING")
       callBack()
-      return data;
     };
 
     const pause = async () => {
-      const requestOptions = {
-        method: 'PUT',
-        headers: { 
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-    };
-    const response = await fetch(`http://localhost:8000/carwash/pause/${id}?time=${time.minutes}%2C${time.seconds}`, requestOptions);
-    const data = await response.json();
-    setPaused(true)
-    callBack()
-    return data
+      setCurrentStatus("PAUSED")
+      setPaused(true)
+      callBack()
     }
 
     const callBack = useCallback(
