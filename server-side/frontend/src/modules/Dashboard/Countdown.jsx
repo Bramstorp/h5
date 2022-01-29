@@ -55,25 +55,20 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, 
     }
 
     const start = async (min, sec) => {
-      let startMin
-      let startSec
       if (time.minutes === 0 && time.seconds === 0){
-        startMin = min
-        startSec = sec
         setTime({
           minutes: min,
           seconds: sec,
         });
       } else {
-        startMin = time.minutes
-        startSec = time.seconds
+
         setTime({
           minutes: time.minutes,
           seconds: time.seconds,
         });
       }
       setCurrentStatus("RUNNING")
-      updateWash(startMin, startSec, "RUNNING")
+      updateWash(time.minute, time.seconds, "RUNNING")
       setPaused(false);
       setOver(false);
       callBack()

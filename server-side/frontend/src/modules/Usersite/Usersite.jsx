@@ -8,7 +8,7 @@ const axios = require("axios").default;
 
 export const Usersite = () => {
     const [currentWash, setCurrentWash] = useState({})
-    const [error, setError] = useState({})
+    const [error, setError] = useState(null)
 
     const { user } = useContext(AuthenticationContext);
 
@@ -52,9 +52,11 @@ export const Usersite = () => {
               </div>
           </div>
         </div>
+        {currentWash ? 
         <div style={{ textAlign: "-webkit-center" }}>
           <Wash admin={true} wash={currentWash} handleChange={fetchWash} />
         </div>
+        : ""}
       </div>
     : ""}
     </>

@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Countdown } from "./Countdown"
 
 export const Wash = ({ wash, handleChange, admin }) => {
-  const [status, setStatus] = useState(wash.status);
-  
+  const [status, setStatus] = useState("");
+
+    useEffect(() => {
+      setStatus(wash.status);
+    }, [wash.status]);
+
     const setCurrentStatus = async (updateState) => {
       setStatus(updateState)
     };
