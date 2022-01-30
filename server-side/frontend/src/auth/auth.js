@@ -14,7 +14,7 @@ export function RequireToken({children}){
 
 export function HaveToken({children}){
     let auth = fetchToken()
-    if(auth){
+    if(auth !== "null"){
         return <Navigate to='/user' />;
     }
     return children;

@@ -4,10 +4,10 @@ import { Countdown } from "./Countdown"
 export const Wash = ({ wash, handleChange, admin }) => {
   const [status, setStatus] = useState("");
 
-    useEffect(() => {
-      setStatus(wash.status);
-    }, [wash.status]);
-
+  useEffect(() => {
+    setStatus(wash.status);
+  }, [wash.status]);
+  
     const setCurrentStatus = async (updateState) => {
       setStatus(updateState)
     };
