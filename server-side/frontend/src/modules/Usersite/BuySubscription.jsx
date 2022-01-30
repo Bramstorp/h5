@@ -8,20 +8,29 @@ export const BuySubscription = () => {
     const [error, setError] = useState(null)
 
     const buySubscription = () => {
-        if (user){
-            axios.put(`http://localhost:8000/users?user_id=${user.id}&subscribed=true`)      
-            .then(function (response) {
-                getUser()
-            })
-            .catch(function (error) {
-                setError(error);
-            });
-        }
-    }
+      if (user) {
+        axios
+          .put(`http://localhost:8000/users?user_id=${user.id}&subscribed=true`)
+          .then(function (response) {
+            getUser();
+          })
+          .catch(function (error) {
+            setError(error);
+          });
+      }
+    };
 
     return (
-        <div className="text-center pb-4">
-            <button className="btn btn-primary" onClick={buySubscription} >Køb subscription</button>
-        </div>
-    )
+      <>
+        {user && !user.is_subscribed ? (
+          <div className="text-center pb-4">
+            <button className="btn btn-primary" onClick={buySubscription}>
+              Køb subscription
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+      </>
+    );
 }
