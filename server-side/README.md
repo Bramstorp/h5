@@ -1,10 +1,16 @@
-Case carwash
+## indholdsfortegnelse
+
+- [Case](#case)
+- [Teknologi beslutninger](#teknologi-beslutninger)
+
+
+## Case
 
 Your client needs you to create a system for controlling their car wash halls.
 
 They wish to a more “smart” way of doing things, they wish for an app or something along the lines of an app, to make the process smarter, but they still want to keep a terminal, in case the app does not work, battery is dead or no reception ect…
 
- The client wants you to implement several features.
+The client wants you to implement several features.
 
 1. Write an app to control a car wash.
 2. Minimum of 4 carwashes.
@@ -19,4 +25,6 @@ They wish to a more “smart” way of doing things, they wish for an app or som
 
 # Teknologi beslutninger:
 
-Clientside - React<br/>  API / Backend - FastAPI<br/> python  NOSQL - MongoDB
+Clientside: React 
+API / Backend: FastAPI python  
+Database: Sqlite3 / Postgressql
