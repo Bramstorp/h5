@@ -5,6 +5,9 @@
 - [Localhost url](#localhost-url)
 - [Opsæting](#opsæting)
 - [CLI COMMANDS](#cli-commands)
+- [Funktioner](#Funktioner)
+- [Test](#test)
+- [Fremtids ide](#fremtids-ide)
 
 # Case
 
@@ -98,3 +101,25 @@ Backend ```docker logs frontend --follow```
 ### Yarn (FRONTEND) CLI DEV
 
 yarn cli ```docker-compose exec frontend <yarn command>```
+
+# Funktioner
+- Auth route (JWT Token, Authenticated, Admin)
+- Login / Signup
+- Async backend + frontend
+- Admin Dashboard with all washing halls
+- User board with user washing hall
+- Wash card with status + countdown + liveupdate
+
+# Test
+### Admin
+For at oprette en admin for at teste admin feature så kun under ``localhost:8000/docs```` derefter gå under user/create user og lave en user hvor admin er "true"
+
+efter det skal man så logge ind med den givende bruger
+
+
+# Fremtids ide 
+lige pt er der 1 ikke best pratice ting
+- vi laver et post kald når tiden går ned på "running" status det burde være på en unmount post og den burde også køre dynamisk som de andre men bare lave en post kald unmount
+
+der mangler et bedre køb subscription flow
+
