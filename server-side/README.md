@@ -28,7 +28,7 @@ The client wants you to implement several features.
 
 - Clientside: React 
 - API / Backend: FastAPI python  
-- Database: Sqlite3 / Postgressql
+- Database: DEV: Sqlite3 - PROD: Postgressql
 - ASGI server UVICORN 
 - Webserver nginx (Kun for prod)
 
@@ -52,6 +52,7 @@ Frontend url: http://0.0.0.0:3000/ | http://localhost:3000/
 1.  [Python](https://www.python.org/downloads/)
 1.  [Pip](https://pip.pypa.io/en/stable/getting-started/)
 1.  [Fastapi](https://fastapi.tiangolo.com/)
+1.  [postgresql](https://www.postgresql.org/download/)
 
 ### Opstæning
 alt køre i docker så får at starte projekte skal du være på server-side og køre docker commanden ```docker-compose up -d --build```.
