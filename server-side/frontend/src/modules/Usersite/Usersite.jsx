@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "./carwash.card.style.css"
 import { Wash } from "../Dashboard/wash"
 import { AuthenticationContext } from "../../service/authentication/authentication.context";
+import { BuySubscription } from "./BuySubscription"
 
 const axios = require("axios").default;
 
@@ -66,6 +67,9 @@ export const Usersite = () => {
               </div>
             </div>
           </div>
+
+          <BuySubscription />
+
           {currentWash ? (
             <div style={{ textAlign: "-webkit-center" }}>
               <Wash admin={true} wash={currentWash} handleChange={fetchWash} />

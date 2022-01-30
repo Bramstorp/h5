@@ -66,3 +66,8 @@ async def get_user(user: User_Pydantic = Depends(get_current_user)):
 @router.get('/users', response_model=List[User_Pydantic])
 async def get_users():
     return await User_Pydantic.from_queryset(User.all())  
+
+@router.put('/users', response_model=User_Pydantic)
+async def update_user(user_id, subscribed):
+    await User.filter(id=user_id).update(is_subscribed=subscribed)
+    return await User_Pydantic.from_queryset_single(User.get(id=user_id))
