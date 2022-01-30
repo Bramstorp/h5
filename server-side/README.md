@@ -108,3 +108,11 @@ yarn cli ```docker-compose exec frontend <yarn command>```
 - Admin Dashboard with all washing halls
 - User board with user washing hall
 - Wash card with status + countdown + liveupdate
+
+# Test
+### Admin
+For at oprette en admin for at teste admin feature så kun under ``localhost:8000/docs```` derefter gå under user/create user og lave en user hvor admin er "true"
+
+efter det skal man så logge ind med den givende bruger
+
+
