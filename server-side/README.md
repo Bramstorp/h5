@@ -7,7 +7,7 @@
 - [CLI COMMANDS](#cli-commands)
 - [Funktioner](#Funktioner)
 - [Test](#test)
-
+- [Fremtids ide](#fremtids-ide)
 
 # Case
 
