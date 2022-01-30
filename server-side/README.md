@@ -34,6 +34,8 @@ The client wants you to implement several features.
 
 Backend url: http://0.0.0.0:8000/ | http://localhost:8000/
 
+Backend url docs/admin: http://0.0.0.0:8000/docs | http://localhost:8000/docs
+
 Frontend url: http://0.0.0.0:3000/ | http://localhost:3000/
 
 
