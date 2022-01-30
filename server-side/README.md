@@ -114,5 +114,3 @@ yarn cli ```docker-compose exec frontend <yarn command>```
 For at oprette en admin for at teste admin feature så kun under ``localhost:8000/docs```` derefter gå under user/create user og lave en user hvor admin er "true"
 
 efter det skal man så logge ind med den givende bruger
-
-
