@@ -35,42 +35,32 @@ Database: Sqlite3 / Postgressql
 
 ## Devlopment envirment CLI
 
-build/up dev env ```devenv dev start```
+build/up dev env ```docker-compose up -d --build```
 
-shutdown dev env ```devenv dev down```
+shutdown dev env ```docker-compose down```
 
-build dev env ```devenv dev build```
+build dev env ```docker-compose build```
 
-up dev env ```devenv dev up```
+up dev env ```docker-compose up```
 
 ## Production CLI
 
-build/up dev env ```devenv prod start```
+build/up dev env ```docker-compose -f docker-compose.prod.yml up -d --build```
 
-shutdown dev env ```devenv prod down```
+shutdown dev env ```docker-compose -f docker-compose.prod.yml down```
 
-build dev env ```devenv prod build```
+build dev env ```docker-compose -f docker-compose.prod.yml build```
 
-up dev env ```devenv prod up```
+up dev env ```docker-compose -f docker-compose.prod.yml up```
 
-## Postgresql CLI
 
-open sql terminal ```devenv psql```
+## Docker CLI LOGS DEV
 
-## Fastapi (BACKEND) CLI
+Frontend ```docker logs backend-fastapi --follow```
 
-fastapi logs ```devenv fastapi logs```
+Backend ```docker logs frontend --follow```
 
-## Docker CLI
+## Yarn (FRONTEND) CLI DEV
 
-Frontend ```devenv docker frontent <command>```
 
-Backend ```devenv docker backend <command>```
-
-database (Postgres) ```devenv docker db <command>```
-
-## Yarn (FRONTEND) CLI
-
-yarn logs ```devenv yarn logs```
-
-yarn cli ```devenv yarn <command>```
+yarn cli ```docker-compose exec frontend <yarn command>```
