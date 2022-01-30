@@ -1,10 +1,10 @@
-## indholdsfortegnelse
+# indholdsfortegnelse
 
 - [Case](#case)
 - [Teknologi beslutninger](#teknologi-beslutninger)
 
 
-## Case
+# Case
 
 Your client needs you to create a system for controlling their car wash halls.
 
@@ -23,7 +23,7 @@ The client wants you to implement several features.
 9. The user can either have a subscription, to get free washes, or pay for one at the time.
 
 
-## Teknologi beslutninger:
+# Teknologi beslutninger:
 
 Clientside: React 
 API / Backend: FastAPI python  
