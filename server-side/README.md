@@ -56,7 +56,7 @@ Frontend url: http://0.0.0.0:3000/ | http://localhost:3000/
 ### Opstæning
 alt køre i docker så får at starte projekte skal du være på server-side og køre docker commanden ```docker-compose up -d --build```.
 
-hvis du er unix skal du gå under  ```server-side/nginx/Dockerfile.prod ``` og ændre ```RUN export NODE_OPTIONS=--openssl-legacy-provider && yarn build && yarn install --production --ignore-scripts --prefer-offline``` til ```yarn run build```
+hvis du vil køre prod og er unix skal du gå under  ```server-side/nginx/Dockerfile.prod ``` og ændre ```RUN export NODE_OPTIONS=--openssl-legacy-provider && yarn build && yarn install --production --ignore-scripts --prefer-offline``` til ```yarn run build```
 
 # CLI COMMANDS
 
