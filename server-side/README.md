@@ -29,6 +29,8 @@ The client wants you to implement several features.
 - Clientside: React 
 - API / Backend: FastAPI python  
 - Database: Sqlite3 / Postgressql
+- ASGI server UVICORN 
+- Webserver nginx (Kun for prod)
 
 # Localhost url
 
@@ -48,7 +50,8 @@ Frontend url: http://0.0.0.0:3000/ | http://localhost:3000/
 1.  [Yarn](https://yarnpkg.com/lang/en/docs/install/) _(version 1.5 or greater)_.
 1.  [Docker](https://www.docker.com/products/docker-desktop)
 1.  [Python](https://www.python.org/downloads/)
-1.  [pip](https://pip.pypa.io/en/stable/getting-started/)
+1.  [Pip](https://pip.pypa.io/en/stable/getting-started/)
+1.  [Fastapi](https://fastapi.tiangolo.com/)
 
 ### Opstæning
 alt køre i docker så får at starte projekte skal du være på server-side og køre docker commanden ```docker-compose up -d --build``` 
