@@ -5,7 +5,7 @@
 - [Localhost url](#localhost-url)
 - [Opsæting](#opsæting)
 - [CLI COMMANDS](#cli-commands)
-- [Funktioner and Feature](#funktioner-and-feature)
+- [Funktioner](#Funktioner)
 
 
 # Case
@@ -101,7 +101,7 @@ Backend ```docker logs frontend --follow```
 
 yarn cli ```docker-compose exec frontend <yarn command>```
 
-# Funktioner / Feature
+# Funktioner
 - Auth route (JWT Token, Authenticated, Admin)
 - Login / Signup
 - Async backend + frontend
