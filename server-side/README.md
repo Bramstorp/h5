@@ -6,6 +6,7 @@
 - [Opsæting](#opsæting)
 - [CLI COMMANDS](#cli-commands)
 - [Funktioner](#Funktioner)
+- [Test](#test)
 
 
 # Case
