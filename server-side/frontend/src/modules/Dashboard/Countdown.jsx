@@ -43,42 +43,47 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, 
     };
 
     const stop = async () => {
+      const statusName = "STOPPED"
       setTime({
         minutes: 0,
         seconds: 0
       });
-      setCurrentStatus("STOPPED")
       setPaused(false);
       setOver(false);
-      updateWash(0, 0, "STOPPED")
-      callBack()
+      updateWash(0, 0, statusName)
+      setCurrentStatus(statusName)
     }
 
     const start = async (min, sec) => {
+      const statusName = "RUNNING"
+      let test1;
+      let test2;
       if (time.minutes === 0 && time.seconds === 0){
+        test1 = min
+        test2 = sec
         setTime({
           minutes: min,
           seconds: sec,
         });
       } else {
-
+        test1 = time.minutes
+        test2 = time.seconds
         setTime({
           minutes: time.minutes,
           seconds: time.seconds,
         });
       }
-      setCurrentStatus("RUNNING")
-      updateWash(time.minute, time.seconds, "RUNNING")
+      updateWash(test1, test2, statusName)
       setPaused(false);
       setOver(false);
-      callBack()
+      setCurrentStatus(statusName)
     };
 
     const pause = async () => {
-      setCurrentStatus("PAUSED")
-      updateWash(time.minutes, time.seconds, "PAUSED")
+      const statusName = "PAUSED"
+      updateWash(time.minutes, time.seconds, statusName)
       setPaused(true)
-      callBack()
+      setCurrentStatus(statusName)
     }
 
     const callBack = useCallback(
