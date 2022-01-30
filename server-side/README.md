@@ -2,9 +2,9 @@
 
 - [Case](#case)
 - [Teknologi beslutninger](#teknologi-beslutninger)
-- [Opsæting] (#opsæting)
+- [Opsæting](#opsæting)
 - [CLI COMMANDS](#cli-commands)
-
+- [Localhost url](#localhost-url)
 
 # Case
 
@@ -29,6 +29,13 @@ The client wants you to implement several features.
 - Clientside: React 
 - API / Backend: FastAPI python  
 - Database: Sqlite3 / Postgressql
+
+# Localhost url
+
+Backend url: http://0.0.0.0:8000/ | http://localhost:8000/
+
+Frontend url: http://0.0.0.0:3000/ | http://localhost:3000/
+
 
 # Opsæting
 
