@@ -2,6 +2,7 @@
 
 - [Case](#case)
 - [Teknologi beslutninger](#teknologi-beslutninger)
+- [CLI COMMANDS](#cli-commands)
 
 
 # Case
@@ -28,8 +29,6 @@ The client wants you to implement several features.
 Clientside: React 
 API / Backend: FastAPI python  
 Database: Sqlite3 / Postgressql
-
-
 
 # CLI COMMANDS
 
