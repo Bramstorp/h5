@@ -23,12 +23,33 @@ The client wants you to implement several features.
 8. You must use a NOSQL database (Firebase, Mongo DB).
 9. The user can either have a subscription, to get free washes, or pay for one at the time.
 
-
 # Teknologi beslutninger:
 
 - Clientside: React 
 - API / Backend: FastAPI python  
 - Database: Sqlite3 / Postgressql
+
+# Opsæting
+
+## Opsætningskrav
+
+1.  [Git](https://git-scm.com/downloads).
+1.  [Node](https://nodejs.org/en/download/) _(version 12 or greater)_.
+1.  [Yarn](https://yarnpkg.com/lang/en/docs/install/) _(version 1.5 or greater)_.
+1.  [Expo](https://docs.expo.dev/get-started/installation/)
+1.  [Expo app ios](https://apps.apple.com/us/app/expo-go/id982107779)
+1.  [Expo app android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=da&gl=US)
+
+### Installtion og opsætning af packages
+
+1.  `cd cryptocurrency-app` til at komme ind i root af projektet.
+1.  `yarn` til at installer pakker / dependencies.
+
+### Kører projektet lokalt 
+
+1.  `cd cryptocurrency-app` til at komme ind i root af projektet.
+1.  `yarn start` eller `expo start` til at opsætte appen af expo live server 
+1.  `open http://localhost:19002/` til at åben expo siden lokalt, efter det går under tunnel også scan den med QR koden på din telefon for at åbne appen.
 
 # CLI COMMANDS
 
