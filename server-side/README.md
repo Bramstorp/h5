@@ -26,9 +26,9 @@ The client wants you to implement several features.
 
 # Teknologi beslutninger:
 
-Clientside: React 
-API / Backend: FastAPI python  
-Database: Sqlite3 / Postgressql
+- Clientside: React 
+- API / Backend: FastAPI python  
+- Database: Sqlite3 / Postgressql
 
 # CLI COMMANDS
 
