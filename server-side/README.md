@@ -121,5 +121,5 @@ efter det skal man så logge ind med den givende bruger
 lige pt er der 1 ikke best pratice ting
 - vi laver et post kald når tiden går ned på "running" status det burde være på en unmount post og den burde også køre dynamisk som de andre men bare lave en post kald unmount
 
-der mangler et købs subscription flow lige nu er der om man er eller ej + køb mentet intet der ser på priser / køb
+der mangler et køb / subscription flow lige nu er der om man er subscriped eller ej
 
