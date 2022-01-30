@@ -9,6 +9,8 @@ export const Countdown = ({ id, countdownTime, handleChange, admin, washStatus, 
       seconds: parseInt(countdownTime[1], 10)
     });
 
+    useEffect(() => () => console.log("UNMOUNT"), [])
+
     const updateWash = async (min, sec, status) => {
       await axios.put(`http://localhost:8000/carwash/update/${id}?time=${min}%2C${sec}&status=${status}`)
     };
