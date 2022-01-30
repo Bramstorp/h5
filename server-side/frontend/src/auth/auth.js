@@ -1,4 +1,6 @@
 import { Navigate } from "react-router-dom"
+import { AuthenticationContext } from "../service/authentication/authentication.context";
+import React, { useContext } from "react";
 
 export const fetchToken = () =>{
     return JSON.stringify(localStorage.getItem('jwt'))
@@ -31,3 +33,14 @@ export const isAuthenticated = () => {
         return false;
     }
 };
+
+export const IsAdmin = ({ children }) => {
+    const { user } = useContext(AuthenticationContext);
+
+    if (user){
+        if(!user.is_admin){
+            return <Navigate to='/user' />;
+        }
+    }
+    return children;
+}

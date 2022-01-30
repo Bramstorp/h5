@@ -5,12 +5,12 @@ import { isAuthenticated, isAdmin } from "../auth/auth"
 
 
 export const Navbar = () => {
-  const { onSignout } = useContext(AuthenticationContext);
+  const { onSignout, user } = useContext(AuthenticationContext);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
       <div className="container">
-        <a className="navbar-brand" href="/">
-            Car Wash
+        <a className="navbar-brand">
+          Car Wash
         </a>
         <button
           className="navbar-toggler"
@@ -25,22 +25,40 @@ export const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link className="nav-link" to="/Dashboard">
-                Dashboard
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/user">
-                Usersite
-              </Link>
-            </li>
+            {user && user.is_admin ? (
+              <li className="nav-item">
+                <Link className="nav-link" to="/Dashboard">
+                  Dashboard
+                </Link>
+              </li>
+            ) : (
+              ""
+            )}
+            {user ? (
+              <li className="nav-item">
+                <Link className="nav-link" to="/user">
+                  Usersite
+                </Link>
+              </li>
+            ) : (
+              ""
+            )}
           </ul>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              {
-                isAuthenticated() ? <a href="/user" className="nav-link" onClick={() => onSignout()} >Logout</a> : <Link className="nav-link" to="/">Login</Link>
-              }
+              {isAuthenticated() ? (
+                <a
+                  href="/user"
+                  className="nav-link"
+                  onClick={() => onSignout()}
+                >
+                  Logout
+                </a>
+              ) : (
+                <Link className="nav-link" to="/">
+                  Login
+                </Link>
+              )}
             </li>
           </ul>
         </div>
