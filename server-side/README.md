@@ -34,12 +34,20 @@ The client wants you to implement several features.
 
 # Localhost url
 
+### DEV
 Backend url: http://0.0.0.0:8000/ | http://localhost:8000/
 
 Backend url docs/admin: http://0.0.0.0:8000/docs | http://localhost:8000/docs
 
 Frontend url: http://0.0.0.0:3000/ | http://localhost:3000/
 
+### PROD
+
+Backend url: http://0.0.0.0:8080/ | http://localhost:8080/
+
+Backend url docs/admin: http://0.0.0.0:8080/docs | http://localhost:8080/docs
+
+Frontend url: http://0.0.0.0 | http://localhost
 
 # Opsæting
 
