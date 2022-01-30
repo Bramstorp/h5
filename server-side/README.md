@@ -39,7 +39,7 @@ Frontend url: http://0.0.0.0:3000/ | http://localhost:3000/
 
 # Opsæting
 
-## Opsætningskrav
+### Opsætningskrav
 
 1.  [Git](https://git-scm.com/downloads).
 1.  [Node](https://nodejs.org/en/download/) _(version 12 or greater)_.
@@ -48,12 +48,12 @@ Frontend url: http://0.0.0.0:3000/ | http://localhost:3000/
 1.  [Python](https://www.python.org/downloads/)
 1.  [pip](https://pip.pypa.io/en/stable/getting-started/)
 
-## Opstæning
+### Opstæning
 alt køre i docker så får at starte projekte skal du være på server-side og køre docker commanden ```docker-compose up -d --build``` 
 
 # CLI COMMANDS
 
-## Devlopment envirment CLI
+### Devlopment envirment CLI
 
 build/up dev env ```docker-compose up -d --build```
 
@@ -63,7 +63,7 @@ build dev env ```docker-compose build```
 
 up dev env ```docker-compose up```
 
-## Production CLI
+### Production CLI
 
 build/up dev env ```docker-compose -f docker-compose.prod.yml up -d --build```
 
@@ -74,13 +74,12 @@ build dev env ```docker-compose -f docker-compose.prod.yml build```
 up dev env ```docker-compose -f docker-compose.prod.yml up```
 
 
-## Docker CLI LOGS DEV
+### Docker CLI LOGS DEV
 
 Frontend ```docker logs backend-fastapi --follow```
 
 Backend ```docker logs frontend --follow```
 
-## Yarn (FRONTEND) CLI DEV
-
+### Yarn (FRONTEND) CLI DEV
 
 yarn cli ```docker-compose exec frontend <yarn command>```
