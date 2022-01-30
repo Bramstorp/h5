@@ -23,8 +23,54 @@ The client wants you to implement several features.
 9. The user can either have a subscription, to get free washes, or pay for one at the time.
 
 
-# Teknologi beslutninger:
+## Teknologi beslutninger:
 
 Clientside: React 
 API / Backend: FastAPI python  
 Database: Sqlite3 / Postgressql
+
+
+
+# CLI COMMANDS
+
+## Devlopment envirment CLI
+
+build/up dev env ```devenv dev start```
+
+shutdown dev env ```devenv dev down```
+
+build dev env ```devenv dev build```
+
+up dev env ```devenv dev up```
+
+## Production CLI
+
+build/up dev env ```devenv prod start```
+
+shutdown dev env ```devenv prod down```
+
+build dev env ```devenv prod build```
+
+up dev env ```devenv prod up```
+
+## Postgresql CLI
+
+open sql terminal ```devenv psql```
+
+## Fastapi (BACKEND) CLI
+
+fastapi logs ```devenv fastapi logs```
+
+## Docker CLI
+
+Frontend ```devenv docker frontent <command>```
+
+Backend ```devenv docker backend <command>```
+
+database (Postgres) ```devenv docker db <command>```
+
+## Yarn (FRONTEND) CLI
+
+yarn logs ```devenv yarn logs```
+
+yarn cli ```devenv yarn <command>```
