@@ -5,7 +5,7 @@
 - [Localhost url](#localhost-url)
 - [Opsæting](#opsæting)
 - [CLI COMMANDS](#cli-commands)
-- [Funktioner / Feature](#funktioner/feature)
+- [Funktioner and Feature](#funktioner-and-feature)
 
 
 # Case
