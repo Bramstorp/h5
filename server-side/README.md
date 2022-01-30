@@ -2,9 +2,9 @@
 
 - [Case](#case)
 - [Teknologi beslutninger](#teknologi-beslutninger)
+- [Localhost url](#localhost-url)
 - [Opsæting](#opsæting)
 - [CLI COMMANDS](#cli-commands)
-- [Localhost url](#localhost-url)
 
 # Case
 
