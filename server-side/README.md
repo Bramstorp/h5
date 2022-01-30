@@ -5,6 +5,8 @@
 - [Localhost url](#localhost-url)
 - [Opsæting](#opsæting)
 - [CLI COMMANDS](#cli-commands)
+- [Funktioner / Feature](#funktioner/feature)
+
 
 # Case
 
@@ -98,3 +100,11 @@ Backend ```docker logs frontend --follow```
 ### Yarn (FRONTEND) CLI DEV
 
 yarn cli ```docker-compose exec frontend <yarn command>```
+
+# Funktioner / Feature
+- Auth route (JWT Token, Authenticated, Admin)
+- Login / Signup
+- Async backend + frontend
+- Admin Dashboard with all washing halls
+- User board with user washing hall
+- Wash card with status + countdown + liveupdate
