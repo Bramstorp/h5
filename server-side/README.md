@@ -2,6 +2,7 @@
 
 - [Case](#case)
 - [Teknologi beslutninger](#teknologi-beslutninger)
+- [Opsæting] (#opsæting)
 - [CLI COMMANDS](#cli-commands)
 
 
@@ -40,16 +41,8 @@ The client wants you to implement several features.
 1.  [Python](https://www.python.org/downloads/)
 1.  [pip](https://pip.pypa.io/en/stable/getting-started/)
 
-### Installtion og opsætning af packages
-
-1.  `cd cryptocurrency-app` til at komme ind i root af projektet.
-1.  `yarn` til at installer pakker / dependencies.
-
-### Kører projektet lokalt 
-
-1.  `cd cryptocurrency-app` til at komme ind i root af projektet.
-1.  `yarn start` eller `expo start` til at opsætte appen af expo live server 
-1.  `open http://localhost:19002/` til at åben expo siden lokalt, efter det går under tunnel også scan den med QR koden på din telefon for at åbne appen.
+## Opstæning
+alt køre i docker så får at starte projekte skal du være på server-side og køre docker commanden ```docker-compose up -d --build``` 
 
 # CLI COMMANDS
 
